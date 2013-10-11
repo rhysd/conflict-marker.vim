@@ -45,6 +45,15 @@ if s:get('enable_matchit', 1)
     augroup END
 endif
 
+command! -nargs=0 ConflictMarkerThemselves call conflict_marker#themselves()
+command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
+command! -nargs=0 ConflictMarkerBoth       call conflict_marker#down_together()
+command! -nargs=0 ConflictMarkerNone       call conflict_marker#compromise()
+
+if s:get('enable_mappings', 0)
+    " TODO
+endif
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
