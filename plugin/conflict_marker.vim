@@ -14,6 +14,7 @@ let g:conflict_marker_begin = s:get('begin', '^<<<<<<< ')
 let g:conflict_marker_separator = s:get('separator', '^=======$')
 let g:conflict_marker_end = s:get('end', '^>>>>>>> ')
 
+" XXX doesn't work
 if s:get('enable_highlight', 1)
     augroup ConflictMarkerHighlight
         autocmd!
