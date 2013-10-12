@@ -84,6 +84,21 @@ function! conflict_marker#compromise()
     execute markers[0][0].'delete'
 endfunction
 
+function! conflict_marker#detect()
+    let pos_save = getpos('.')
+    try
+        keepjumps normal! gg
+        for marker in [g:conflict_marker_begin, g:conflict_marker_separator, g:conflict_marker_end]
+            if search(marker, 'cW') == 0
+                return 0
+            endif
+        endfor
+        return 1
+    finally
+        call setpos('.', pos_save)
+    endtry
+endfunction
+
 function! conflict_marker#next_conflict()
     throw "Not implemented"
 endfunction

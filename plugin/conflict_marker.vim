@@ -53,8 +53,24 @@ command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
 command! -nargs=0 ConflictMarkerBoth       call conflict_marker#down_together()
 command! -nargs=0 ConflictMarkerNone       call conflict_marker#compromise()
 
-if s:get('enable_mappings', 0)
-    " TODO
+if s:get('enable_detection', 1)
+    function! s:hook_on_detected()
+        if s:get('enable_mappings', 0)
+            " TODO
+        endif
+        if exists('g:conflict_marker_hook_on_detected')
+            if type('g:conflict_marker_hook_on_detected') == type('')
+                call call(function(g:conflict_marker_hook_on_detected, []))
+            else
+                call call(g:conflict_marker_hook_on_detected, [])
+            endif
+        endif
+    endfunction
+
+    augroup ConflictMarkerDetect
+        autocmd!
+        autocmd BufRead,BufNew,BufNewFile * if conflict_marker#detect() | call <SID>hook_on_detected() | endif
+    augroup END
 endif
 
 let &cpo = s:save_cpo
