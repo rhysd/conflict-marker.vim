@@ -99,10 +99,28 @@ function! conflict_marker#detect()
     endtry
 endfunction
 
+function! s:jump_to_hunk_if_valid(original_pos, hunk)
+    if s:valid_hunk(a:hunk)
+        call cursor(a:hunk[0][0], a:hunk[0][1])
+    else
+        call setpos('.', a:original_pos)
+    endif
+endfunction
+
 function! conflict_marker#next_conflict()
-    throw "Not implemented"
+    let pos = getpos('.')
+    call s:jump_to_hunk_if_valid(pos, [
+                \ searchpos(g:conflict_marker_begin, 'W'),
+                \ searchpos(g:conflict_marker_separator, 'cW'),
+                \ searchpos(g:conflict_marker_end, 'cW'),
+                \ ])
 endfunction
 
 function! conflict_marker#previous_conflict()
-    throw "Not implemented"
+    let pos = getpos('.')
+    call s:jump_to_hunk_if_valid(pos, reverse([
+                \ searchpos(g:conflict_marker_end, 'bcW'),
+                \ searchpos(g:conflict_marker_separator, 'bW'),
+                \ searchpos(g:conflict_marker_begin, 'bW'),
+                \ ]))
 endfunction

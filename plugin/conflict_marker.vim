@@ -52,6 +52,8 @@ command! -nargs=0 ConflictMarkerThemselves call conflict_marker#themselves()
 command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
 command! -nargs=0 ConflictMarkerBoth       call conflict_marker#down_together()
 command! -nargs=0 ConflictMarkerNone       call conflict_marker#compromise()
+command! -nargs=0 ConflictMarkerNextHunk   call conflict_marker#next_conflict()
+command! -nargs=0 ConflictMarkerPrevHunk   call conflict_marker#previous_conflict()
 
 if s:get('enable_detection', 1)
     function! s:hook_on_detected()
