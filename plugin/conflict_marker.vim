@@ -68,6 +68,8 @@ nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>call conflict_marker#t
 nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>call conflict_marker#ourselves()<CR>
 nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>call conflict_marker#down_together()<CR>
 nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>call conflict_marker#compromise()<CR>
+nnoremap <silent><Plug>(conflict-marker-next-hunk)       :<C-u>call conflict_marker#next_conflict()<CR>
+nnoremap <silent><Plug>(conflict-marker-prev-hunk)       :<C-u>call conflict_marker#previous_conflict()<CR>
 
 
 if s:get('enable_detection', 1)
