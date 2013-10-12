@@ -55,6 +55,12 @@ command! -nargs=0 ConflictMarkerNone       call conflict_marker#compromise()
 command! -nargs=0 ConflictMarkerNextHunk   call conflict_marker#next_conflict()
 command! -nargs=0 ConflictMarkerPrevHunk   call conflict_marker#previous_conflict()
 
+nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>call conflict_marker#themselves()<CR>
+nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>call conflict_marker#ourselves()<CR>
+nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>call conflict_marker#down_together()<CR>
+nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>call conflict_marker#compromise()<CR>
+
+
 if s:get('enable_detection', 1)
     function! s:hook_on_detected()
         if s:get('enable_mappings', 0)

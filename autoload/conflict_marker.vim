@@ -58,6 +58,7 @@ function! conflict_marker#themselves()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
     execute markers[0][0].','.markers[1][0].'delete'
+    silent! call repeat#set("\<Plug>(conflict-marker-themselves)", v:count)
 endfunction
 
 " Note: temporary implementation, linewise
@@ -66,6 +67,7 @@ function! conflict_marker#ourselves()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[1][0].','.markers[2][0].'delete'
     execute markers[0][0].'delete'
+    silent! call repeat#set("\<Plug>(conflict-marker-ourselves)", v:count)
 endfunction
 
 " Note: temporary implementation, linewise
@@ -73,6 +75,7 @@ function! conflict_marker#down_together()
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[0][0].','.markers[2][0].'delete'
+    silent! call repeat#set("\<Plug>(conflict-marker-both)", v:count)
 endfunction
 
 " Note: temporary implementation, linewise
@@ -82,6 +85,7 @@ function! conflict_marker#compromise()
     execute markers[2][0].'delete'
     execute markers[1][0].'delete'
     execute markers[0][0].'delete'
+    silent! call repeat#set("\<Plug>(conflict-marker-none)", v:count)
 endfunction
 
 function! conflict_marker#detect()
