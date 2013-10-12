@@ -31,9 +31,18 @@ endif
 
 if s:get('enable_matchit', 1)
     function! s:set_conflict_marker_to_match_words()
+        if ! exists('g:loaded_matchit')
+            runtime macros/matchit.vim
+            if ! exists('g:loaded_matchit')
+                " matchit.vim doesn't exists. remove autocmd
+                autocmd! ConflictMarkerMatchIt
+            endif
+        endif
+
         if exists('b:conflict_marker_match_words_loaded')
             return
         endif
+
         let b:match_words = get(b:, 'match_words', '')
                     \       . printf('%s:%s:%s',
                     \                g:conflict_marker_begin,
