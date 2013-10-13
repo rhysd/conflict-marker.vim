@@ -44,7 +44,7 @@ if s:get('enable_matchit', 1)
         endif
 
         let b:match_words = get(b:, 'match_words', '')
-                    \       . printf('%s:%s:%s',
+                    \       . printf(',%s:%s:%s',
                     \                g:conflict_marker_begin,
                     \                g:conflict_marker_separator,
                     \                g:conflict_marker_end)
