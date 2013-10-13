@@ -10,9 +10,9 @@ describe 'Default settings'
     it 'provide variables to customize'
         Expect 'g:loaded_conflict_marker' to_exist
         Expect 'g:conflict_marker_highlight_group' to_exist_and_default_to 'Error'
-        Expect 'g:conflict_marker_begin' to_exist_and_default_to '^<<<<<<<\ze '
+        Expect 'g:conflict_marker_begin' to_exist_and_default_to '^<<<<<<< \@='
         Expect 'g:conflict_marker_separator' to_exist_and_default_to '^=======$'
-        Expect 'g:conflict_marker_end' to_exist_and_default_to '^>>>>>>>\ze '
+        Expect 'g:conflict_marker_end' to_exist_and_default_to '^>>>>>>> \@='
     end
 
     it 'provides commands'
