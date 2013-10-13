@@ -105,8 +105,14 @@ endif
 if s:get('enable_hooks', 1)
     function! s:hook_on_detected()
         if s:get('enable_mappings', 0)
-            " TODO
+            nmap <buffer>]x <Plug>(conflict-marker-next-hunk)
+            nmap <buffer>[x <Plug>(conflict-marker-prev-hunk)
+            nmap <buffer><Leader>ct <Plug>(conflict-marker-themselves)
+            nmap <buffer><Leader>co <Plug>(conflict-marker-ourselves)
+            nmap <buffer><Leader>cn <Plug>(conflict-marker-none)
+            nmap <buffer><Leader>cb <Plug>(conflict-marker-both)
         endif
+
         if exists('g:conflict_marker_hook_on_detected')
             if type('g:conflict_marker_hook_on_detected') == type('')
                 call call(function(g:conflict_marker_hook_on_detected, []))

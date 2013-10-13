@@ -3,6 +3,8 @@ execute 'set' 'rtp +=./'.s:root_dir
 
 call vspec#matchers#load()
 
+let g:conflict_marker_enable_mappings
+
 runtime plugin/conflict_marker.vim
 
 describe 'Default settings'
@@ -31,5 +33,30 @@ describe 'Default settings'
         Expect '<Plug>(conflict-marker-none)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-next-hunk)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-prev-hunk)' to_map_in 'n'
+    end
+
+    it 'provides user mappings if g:conflict_marker_enable_mappings is 1'
+        new
+        let lines = [
+                \ "<<<<<<< HEAD",
+                \ "ourselves1",
+                \ "=======",
+                \ "themselves1",
+                \ ">>>>>>> 8374eabc232",
+                \ ]
+
+        for l in range(1, len(lines))
+            call setline(l, lines[l-1])
+        endfor
+        doautocmd BufReadPost
+
+        Expect ']x' to_map_in 'n'
+        Expect '[x' to_map_in 'n'
+        Expect '<Leader>ct' to_map_in 'n'
+        Expect '<Leader>co' to_map_in 'n'
+        Expect '<Leader>cn' to_map_in 'n'
+        Expect '<Leader>cb' to_map_in 'n'
+
+        close!
     end
 end
