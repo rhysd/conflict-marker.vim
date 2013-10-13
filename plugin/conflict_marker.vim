@@ -14,18 +14,63 @@ let g:conflict_marker_begin = s:get('begin', '^<<<<<<< \@=')
 let g:conflict_marker_separator = s:get('separator', '^=======$')
 let g:conflict_marker_end = s:get('end', '^>>>>>>> \@=')
 
+command! -nargs=0 ConflictMarkerThemselves call conflict_marker#themselves()
+command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
+command! -nargs=0 ConflictMarkerBoth       call conflict_marker#down_together()
+command! -nargs=0 ConflictMarkerNone       call conflict_marker#compromise()
+command! -nargs=0 ConflictMarkerNextHunk   call conflict_marker#next_conflict()
+command! -nargs=0 ConflictMarkerPrevHunk   call conflict_marker#previous_conflict()
+
+nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>call conflict_marker#themselves()<CR>
+nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>call conflict_marker#ourselves()<CR>
+nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>call conflict_marker#down_together()<CR>
+nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>call conflict_marker#compromise()<CR>
+nnoremap <silent><Plug>(conflict-marker-next-hunk)  :<C-u>call conflict_marker#next_conflict()<CR>
+nnoremap <silent><Plug>(conflict-marker-prev-hunk)  :<C-u>call conflict_marker#previous_conflict()<CR>
+
+function! s:detect_marker()
+    if exists('b:conflict_marker_exists')
+        return b:conflict_marker_exists
+    endif
+
+    let pos_save = getpos('.')
+    try
+        keepjumps normal! gg
+        for marker in [g:conflict_marker_begin, g:conflict_marker_separator, g:conflict_marker_end]
+            if search(marker, 'cW') == 0
+                let b:conflict_marker_exists = 0
+                return 0
+            endif
+        endfor
+        let b:conflict_marker_exists = 1
+        return 1
+    finally
+        call setpos('.', pos_save)
+    endtry
+endfunction
+
+augroup ConflictMarkerDetect
+    autocmd!
+    autocmd BufReadPost * if s:detect_marker() | call <SID>hook_on_detected() | endif
+augroup END
+
 if s:get('enable_highlight', 1)
     " highlight before colorscheme is loaded
-    execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+    if s:detect_marker()
+        execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+    endif
 
     augroup ConflictMarkerHighlight
         autocmd!
-        autocmd ColorScheme * execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
-        autocmd BufReadPost * execute
+        autocmd ColorScheme * execute if s:detect_marker() |
+                    \ 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+                    \ | endif
+        autocmd BufReadPost * if s:detect_marker() | execute
                     \ printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
                     \        g:conflict_marker_begin,
                     \        g:conflict_marker_separator,
                     \        g:conflict_marker_end)
+                    \ | endif
     augroup END
 endif
 
@@ -53,26 +98,11 @@ if s:get('enable_matchit', 1)
 
     augroup ConflictMarkerMatchIt
         autocmd!
-        autocmd BufRead,BufNew,BufNewFile * call <SID>set_conflict_marker_to_match_words()
+        autocmd BufReadPost * if s:detect_marker() | call <SID>set_conflict_marker_to_match_words() | endif
     augroup END
 endif
 
-command! -nargs=0 ConflictMarkerThemselves call conflict_marker#themselves()
-command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
-command! -nargs=0 ConflictMarkerBoth       call conflict_marker#down_together()
-command! -nargs=0 ConflictMarkerNone       call conflict_marker#compromise()
-command! -nargs=0 ConflictMarkerNextHunk   call conflict_marker#next_conflict()
-command! -nargs=0 ConflictMarkerPrevHunk   call conflict_marker#previous_conflict()
-
-nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>call conflict_marker#themselves()<CR>
-nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>call conflict_marker#ourselves()<CR>
-nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>call conflict_marker#down_together()<CR>
-nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>call conflict_marker#compromise()<CR>
-nnoremap <silent><Plug>(conflict-marker-next-hunk)  :<C-u>call conflict_marker#next_conflict()<CR>
-nnoremap <silent><Plug>(conflict-marker-prev-hunk)  :<C-u>call conflict_marker#previous_conflict()<CR>
-
-
-if s:get('enable_detection', 1)
+if s:get('enable_hooks', 1)
     function! s:hook_on_detected()
         if s:get('enable_mappings', 0)
             " TODO
@@ -88,7 +118,7 @@ if s:get('enable_detection', 1)
 
     augroup ConflictMarkerDetect
         autocmd!
-        autocmd BufRead,BufNew,BufNewFile * if conflict_marker#detect() | call <SID>hook_on_detected() | endif
+        autocmd BufReadPost * if s:detect_marker() | call <SID>hook_on_detected() | endif
     augroup END
 endif
 

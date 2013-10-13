@@ -88,21 +88,6 @@ function! conflict_marker#compromise()
     silent! call repeat#set("\<Plug>(conflict-marker-none)", v:count)
 endfunction
 
-function! conflict_marker#detect()
-    let pos_save = getpos('.')
-    try
-        keepjumps normal! gg
-        for marker in [g:conflict_marker_begin, g:conflict_marker_separator, g:conflict_marker_end]
-            if search(marker, 'cW') == 0
-                return 0
-            endif
-        endfor
-        return 1
-    finally
-        call setpos('.', pos_save)
-    endtry
-endfunction
-
 function! s:jump_to_hunk_if_valid(original_pos, hunk)
     if s:valid_hunk(a:hunk)
         call cursor(a:hunk[0][0], a:hunk[0][1])
