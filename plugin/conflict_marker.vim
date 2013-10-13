@@ -10,9 +10,9 @@ function! s:get(name, default)
 endfunction
 
 let g:conflict_marker_highlight_group = s:get('highlight_group', 'Error')
-let g:conflict_marker_begin = s:get('begin', '^<<<<<<<\ze ')
+let g:conflict_marker_begin = s:get('begin', '^<<<<<<< \@=')
 let g:conflict_marker_separator = s:get('separator', '^=======$')
-let g:conflict_marker_end = s:get('end', '^>>>>>>>\ze ')
+let g:conflict_marker_end = s:get('end', '^>>>>>>> \@=')
 
 if s:get('enable_highlight', 1)
     " highlight before colorscheme is loaded
