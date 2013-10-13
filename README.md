@@ -9,10 +9,10 @@ Highlight, Jump and Resolve Conflict Markers Quickly in Vim
 
 ## Resolve a Conflict with Various Strategies
 
-- Themselves
-- Ourselves
-- Adopt Both
-- Adopt None
+### Themselves
+### Ourselves
+### Adopt Both
+### Adopt None
 
 ## License
 
