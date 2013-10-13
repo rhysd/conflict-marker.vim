@@ -21,7 +21,7 @@ if s:get('enable_highlight', 1)
     augroup ConflictMarkerHighlight
         autocmd!
         autocmd ColorScheme * execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
-        autocmd VimEnter,WinEnter * execute
+        autocmd BufReadPost * execute
                     \ printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
                     \        g:conflict_marker_begin,
                     \        g:conflict_marker_separator,
@@ -68,8 +68,8 @@ nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>call conflict_marker#t
 nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>call conflict_marker#ourselves()<CR>
 nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>call conflict_marker#down_together()<CR>
 nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>call conflict_marker#compromise()<CR>
-nnoremap <silent><Plug>(conflict-marker-next-hunk)       :<C-u>call conflict_marker#next_conflict()<CR>
-nnoremap <silent><Plug>(conflict-marker-prev-hunk)       :<C-u>call conflict_marker#previous_conflict()<CR>
+nnoremap <silent><Plug>(conflict-marker-next-hunk)  :<C-u>call conflict_marker#next_conflict()<CR>
+nnoremap <silent><Plug>(conflict-marker-prev-hunk)  :<C-u>call conflict_marker#previous_conflict()<CR>
 
 
 if s:get('enable_detection', 1)
