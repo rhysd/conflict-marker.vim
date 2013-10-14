@@ -1,4 +1,4 @@
-*conflict-marker.txt*                           a weapon to fight with conflicts
+*conflict-marker.txt*                           a weapon to fight against conflicts
 
 Author : rhysd <lin90162@yahoo.co.jp>
 
