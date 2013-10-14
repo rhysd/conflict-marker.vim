@@ -1,5 +1,6 @@
 Highlight, Jump and Resolve Conflict Markers Quickly in Vim
 ===============================================
+[![Build Status](https://travis-ci.org/rhysd/conflict-marker.vim.png)](https://travis-ci.org/rhysd/conflict-marker.vim)
 
 ## Highlight Conflict Markers
 
