@@ -51,7 +51,7 @@ endfunction
 
 augroup ConflictMarkerDetect
     autocmd!
-    autocmd BufReadPost * if s:detect_marker() | call <SID>hook_on_detected() | endif
+    autocmd BufReadPost * if s:detect_marker() | call s:hook_on_detected() | endif
 augroup END
 
 if s:get('enable_highlight', 1)
@@ -62,8 +62,8 @@ if s:get('enable_highlight', 1)
 
     augroup ConflictMarkerHighlight
         autocmd!
-        autocmd ColorScheme * execute if s:detect_marker() |
-                    \ 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+        autocmd ColorScheme * if s:detect_marker() |
+                    \ execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
                     \ | endif
         autocmd BufReadPost * if s:detect_marker() | execute
                     \ printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
@@ -98,7 +98,7 @@ if s:get('enable_matchit', 1)
 
     augroup ConflictMarkerMatchIt
         autocmd!
-        autocmd BufReadPost * if s:detect_marker() | call <SID>set_conflict_marker_to_match_words() | endif
+        autocmd BufReadPost * if s:detect_marker() | call s:set_conflict_marker_to_match_words() | endif
     augroup END
 endif
 
@@ -124,7 +124,7 @@ if s:get('enable_hooks', 1)
 
     augroup ConflictMarkerDetect
         autocmd!
-        autocmd BufReadPost * if s:detect_marker() | call <SID>hook_on_detected() | endif
+        autocmd BufReadPost * if s:detect_marker() | call s:hook_on_detected() | endif
     augroup END
 endif
 
