@@ -111,11 +111,11 @@ if s:get('enable_hooks', 1)
             nmap <buffer>cb <Plug>(conflict-marker-both)
         endif
 
-        if exists('g:conflict_marker_hook_on_detected')
-            if type('g:conflict_marker_hook_on_detected') == type('')
-                call call(function(g:conflict_marker_hook_on_detected, []))
+        if exists('g:conflict_marker_hooks') && has_key(g:conflict_marker_hooks, 'on_detected')
+            if type(g:conflict_marker_hooks.on_detected) == type('')
+                call call(function(g:conflict_marker_hooks.on_detected), [])
             else
-                call call(g:conflict_marker_hook_on_detected, [])
+                call call(g:conflict_marker_hooks.on_detected, [], {})
             endif
         endif
     endfunction
