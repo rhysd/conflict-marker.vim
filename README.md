@@ -2,6 +2,14 @@ Highlight, Jump and Resolve Conflict Markers Quickly in Vim
 ===============================================
 [![Build Status](https://travis-ci.org/rhysd/conflict-marker.vim.png)](https://travis-ci.org/rhysd/conflict-marker.vim)
 
+conflict-marker.vim is Vim plugin for developers fighting against conflicts.
+
+conflict-marker.vim does:
+- highlight conflict markers.
+- jump among conflict markers.
+- jump within conflict block; beginning, separator and end of the block.
+- resolve conflict with various strategies; themselves, ourselves, none and both strategies.
+
 ## Highlight Conflict Markers
 
 ## Jump among Conflict Markers
