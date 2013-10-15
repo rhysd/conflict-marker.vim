@@ -102,7 +102,7 @@ endif
 
 if s:get('enable_hooks', 1)
     function! s:hook_on_detected()
-        if s:get('enable_mappings', 0)
+        if s:get('enable_mappings', 1)
             nmap <buffer>]x <Plug>(conflict-marker-next-hunk)
             nmap <buffer>[x <Plug>(conflict-marker-prev-hunk)
             nmap <buffer>ct <Plug>(conflict-marker-themselves)
