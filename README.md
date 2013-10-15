@@ -10,13 +10,22 @@ conflict-marker.vim does:
 - jump within conflict block; beginning, separator and end of the block.
 - resolve conflict with various strategies; themselves, ourselves, none and both strategies.
 
+This plugin tries to define some mappings. If you don't want to use default mappings, set `g:conflict_marker_enable_mappings` to `0`.
+
 ## Highlight Conflict Markers
 
 ## Jump among Conflict Markers
 
+`[x` and `]x` mappings are defined as default.
+
 ## Jump within a Conflict Marker
 
+This feature uses matchit.vim, which is bundled in Vim (`macros/matchit.vim`).
+`%` mapping is extened by matchit.vim.
+
 ## Resolve a Conflict with Various Strategies
+
+This plugin defines mappings as default, `ct` for themselves, `co` for ourselves, `cn` for none and `cb` for both.
 
 ### Themselves
 ### Ourselves
