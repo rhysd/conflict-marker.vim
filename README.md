@@ -3,6 +3,7 @@ Highlight, Jump and Resolve Conflict Markers Quickly in Vim
 [![Build Status](https://travis-ci.org/rhysd/conflict-marker.vim.png)](https://travis-ci.org/rhysd/conflict-marker.vim)
 
 conflict-marker.vim is Vim plugin for developers fighting against conflicts.
+All features is available if and only if an opened buffer contains a conflict marker.
 
 conflict-marker.vim does:
 - highlight conflict markers.
@@ -10,7 +11,7 @@ conflict-marker.vim does:
 - jump within conflict block; beginning, separator and end of the block.
 - resolve conflict with various strategies; themselves, ourselves, none and both strategies.
 
-This plugin tries to define some mappings. If you don't want to use default mappings, set `g:conflict_marker_enable_mappings` to `0`.
+This plugin tries to define some mappings if a conflict marker is detected. If you don't want to use default mappings, set `g:conflict_marker_enable_mappings` to `0`.
 
 ## Highlight Conflict Markers
 
@@ -31,6 +32,8 @@ This plugin defines mappings as default, `ct` for themselves, `co` for ourselves
 ### Ourselves
 ### Adopt Both
 ### Adopt None
+
+## Customize
 
 ## License
 
