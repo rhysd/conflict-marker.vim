@@ -56,9 +56,7 @@ augroup END
 
 if s:get('enable_highlight', 1)
     " highlight before colorscheme is loaded
-    if s:detect_marker()
-        execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
-    endif
+    execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
 
     augroup ConflictMarkerHighlight
         autocmd!
