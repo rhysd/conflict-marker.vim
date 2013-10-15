@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! s:get(name, default)
-    return get(g:, 'g:conflict_marker_'.a:name, a:default)
+    return get(g:, 'conflict_marker_'.a:name, a:default)
 endfunction
 
 let g:conflict_marker_highlight_group = s:get('highlight_group', 'Error')
