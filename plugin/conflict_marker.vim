@@ -72,39 +72,27 @@ function! s:set_conflict_marker_to_match_words()
     let b:conflict_marker_match_words_loaded = 1
 endfunction
 
-function! s:detect_marker()
-    let pos_save = getpos('.')
-    try
-        keepjumps normal! gg
-        for marker in [g:conflict_marker_begin, g:conflict_marker_separator, g:conflict_marker_end]
-            if search(marker, 'cW') == 0
-                return
-            endif
-        endfor
+function! s:on_detected()
+    if g:conflict_marker_enable_hooks
+        call s:execute_hooks()
+    endif
 
-        if g:conflict_marker_enable_hooks
-            call s:execute_hooks()
-        endif
+    if g:conflict_marker_enable_highlight
+        execute printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
+                \      g:conflict_marker_begin,
+                \      g:conflict_marker_separator,
+                \      g:conflict_marker_end)
+        execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+    endif
 
-        if g:conflict_marker_enable_highlight
-            execute printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
-                    \      g:conflict_marker_begin,
-                    \      g:conflict_marker_separator,
-                    \      g:conflict_marker_end)
-            execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
-        endif
-
-        if g:conflict_marker_enable_matchit
-            call s:set_conflict_marker_to_match_words()
-        endif
-    finally
-        call setpos('.', pos_save)
-    endtry
+    if g:conflict_marker_enable_matchit
+        call s:set_conflict_marker_to_match_words()
+    endif
 endfunction
 
 augroup ConflictMarkerDetect
     autocmd!
-    autocmd BufReadPost * call s:detect_marker()
+    autocmd BufReadPost * if conflict_marker#detect#markers() | call s:on_detected() | endif
 augroup END
 
 if g:conflict_marker_enable_highlight
