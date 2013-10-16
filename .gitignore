@@ -1,2 +1,4 @@
 *.lock
 .vim-flavor
+.*.sw?
+.sw?
