@@ -32,7 +32,8 @@ function! s:source.hooks.on_init(args, context)
             break
         endif
         let end_line = search(g:conflict_marker_end, 'cWn')
-        call add(a:context.source__markers, [getline('.'), getline(end_line), line('.')])
+        call add(a:context.source__markers, [getline('.'), line('.')])
+        call add(a:context.source__markers, [getline(end_line), end_line])
     endwhile
 
     call setpos('.', pos_save)
@@ -44,10 +45,10 @@ function! s:source.gather_candidates(args, context)
     endif
 
     return map(a:context.source__markers, "{
-                \ 'word' : v:val[0].' ... '.v:val[1].' (line:'.v:val[2].')',
+                \ 'word' : v:val[0].' (line:'.v:val[1].')',
                 \ 'action__path' : a:context.source__path,
                 \ 'action__buffer_nr' : a:context.source__bufnr,
-                \ 'action__line' : v:val[2],
+                \ 'action__line' : v:val[1],
                 \ }")
 endfunction
 
