@@ -5,14 +5,18 @@ endif
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! s:get(name, default)
-    return get(g:, 'conflict_marker_'.a:name, a:default)
+function! s:var(name, default)
+    let g:conflict_marker_{a:name} = get(g:, 'conflict_marker_'.a:name, a:default)
 endfunction
 
-let g:conflict_marker_highlight_group = s:get('highlight_group', 'Error')
-let g:conflict_marker_begin = s:get('begin', '^<<<<<<< \@=')
-let g:conflict_marker_separator = s:get('separator', '^=======$')
-let g:conflict_marker_end = s:get('end', '^>>>>>>> \@=')
+call s:var('highlight_group', 'Error')
+call s:var('begin', '^<<<<<<< \@=')
+call s:var('separator', '^=======$')
+call s:var('end', '^>>>>>>> \@=')
+call s:var('enable_mappings', 1)
+call s:var('enable_hooks', 1)
+call s:var('enable_highlight', 1)
+call s:var('enable_matchit', 1)
 
 command! -nargs=0 ConflictMarkerThemselves call conflict_marker#themselves()
 command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
@@ -29,7 +33,7 @@ nnoremap <silent><Plug>(conflict-marker-next-hunk)  :<C-u>call conflict_marker#n
 nnoremap <silent><Plug>(conflict-marker-prev-hunk)  :<C-u>call conflict_marker#previous_conflict()<CR>
 
 function! s:execute_hooks()
-    if s:get('enable_mappings', 1)
+    if g:conflict_marker_enable_mappings
         nmap <buffer>]x <Plug>(conflict-marker-next-hunk)
         nmap <buffer>[x <Plug>(conflict-marker-prev-hunk)
         nmap <buffer>ct <Plug>(conflict-marker-themselves)
@@ -78,11 +82,11 @@ function! s:detect_marker()
             endif
         endfor
 
-        if s:get('enable_hooks', 1)
+        if g:conflict_marker_enable_hooks
             call s:execute_hooks()
         endif
 
-        if s:get('enable_highlight', 1)
+        if g:conflict_marker_enable_highlight
             execute printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
                     \      g:conflict_marker_begin,
                     \      g:conflict_marker_separator,
@@ -90,7 +94,7 @@ function! s:detect_marker()
             execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
         endif
 
-        if s:get('enable_matchit', 1)
+        if g:conflict_marker_enable_matchit
             call s:set_conflict_marker_to_match_words()
         endif
     finally
@@ -98,12 +102,12 @@ function! s:detect_marker()
     endtry
 endfunction
 
-augroup ConflictMarkerMatchIt
+augroup ConflictMarkerDetect
     autocmd!
     autocmd BufReadPost * call s:detect_marker()
 augroup END
 
-if s:get('enable_highlight', 1)
+if g:conflict_marker_enable_highlight
     execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
 endif
 

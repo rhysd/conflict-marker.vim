@@ -13,6 +13,10 @@ describe 'Default settings'
         Expect 'g:conflict_marker_begin' to_exist_and_default_to '^<<<<<<< \@='
         Expect 'g:conflict_marker_separator' to_exist_and_default_to '^=======$'
         Expect 'g:conflict_marker_end' to_exist_and_default_to '^>>>>>>> \@='
+        Expect 'g:conflict_marker_enable_mappings' to_exist_and_default_to 1
+        Expect 'g:conflict_marker_enable_hooks' to_exist_and_default_to 1
+        Expect 'g:conflict_marker_enable_highlight' to_exist_and_default_to 1
+        Expect 'g:conflict_marker_enable_matchit' to_exist_and_default_to 1
     end
 
     it 'provides commands'
