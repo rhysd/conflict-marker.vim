@@ -91,25 +91,28 @@ endfunction
 function! s:jump_to_hunk_if_valid(original_pos, hunk)
     if s:valid_hunk(a:hunk)
         call cursor(a:hunk[0][0], a:hunk[0][1])
+        return 1
     else
+        echohl ErrorMsg | echo 'conflict not found' | echohl None
         call setpos('.', a:original_pos)
+        return 0
     endif
 endfunction
 
-function! conflict_marker#next_conflict()
+function! conflict_marker#next_conflict(accept_cursor)
     let pos = getpos('.')
-    call s:jump_to_hunk_if_valid(pos, [
-                \ searchpos(g:conflict_marker_begin, 'W'),
+    return s:jump_to_hunk_if_valid(pos, [
+                \ searchpos(g:conflict_marker_begin, (a:accept_cursor ? 'cW' : 'W')),
                 \ searchpos(g:conflict_marker_separator, 'cW'),
                 \ searchpos(g:conflict_marker_end, 'cW'),
                 \ ])
 endfunction
 
-function! conflict_marker#previous_conflict()
+function! conflict_marker#previous_conflict(accept_cursor)
     let pos = getpos('.')
-    call s:jump_to_hunk_if_valid(pos, reverse([
-                \ searchpos(g:conflict_marker_end, 'bcW'),
-                \ searchpos(g:conflict_marker_separator, 'bW'),
-                \ searchpos(g:conflict_marker_begin, 'bW'),
+    return s:jump_to_hunk_if_valid(pos, reverse([
+                \ searchpos(g:conflict_marker_end, 'bW'),
+                \ searchpos(g:conflict_marker_separator, 'bcW'),
+                \ searchpos(g:conflict_marker_begin, (a:accept_cursor ? 'bcW' : 'bW')),
                 \ ]))
 endfunction

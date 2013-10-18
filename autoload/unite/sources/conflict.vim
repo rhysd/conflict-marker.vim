@@ -13,7 +13,6 @@ function! unite#sources#conflict#define()
 endfunction
 
 function! s:source.hooks.on_init(args, context)
-    echomsg expand('%:p')
     if ! conflict_marker#detect#markers()
         return
     endif
@@ -25,10 +24,15 @@ function! s:source.hooks.on_init(args, context)
     let a:context.source__markers = []
     normal! gg
 
+    if ! conflict_marker#next_conflict(1)
+        return
+    endif
+    let end_line = search(g:conflict_marker_end, 'cWn')
+    call add(a:context.source__markers, [getline('.'), line('.')])
+    call add(a:context.source__markers, [getline(end_line), end_line])
+
     while 1
-        let pos = getpos('.')
-        call conflict_marker#next_conflict()
-        if pos == getpos('.')
+        silent if ! conflict_marker#next_conflict(0)
             break
         endif
         let end_line = search(g:conflict_marker_end, 'cWn')

@@ -24,6 +24,7 @@ let s:lines = [
             \ "=======",
             \ "themselves3",
             \ ">>>>>>> 8374eabc232",
+            \ "",
             \ ]
 
 lockvar s:lines
