@@ -38,7 +38,7 @@ themselves
 >>>>>>> deadbeef0123
 ```
 
-↓`ct`
+↓`ct` or `ConflictMarkerThemselves`
 
 ```
 themselves
@@ -54,7 +54,7 @@ themselves
 >>>>>>> deadbeef0123
 ```
 
-↓`ot`
+↓`co` or `:ConflictMarkerOurselves`
 
 ```
 ourselves
@@ -70,7 +70,7 @@ themselves
 >>>>>>> deadbeef0123
 ```
 
-↓cb`
+↓`cb` or `:ConflictMarkerBoth`
 
 ```
 ourselves
@@ -87,7 +87,7 @@ themselves
 >>>>>>> deadbeef0123
 ```
 
-↓`nb`
+↓`cn` or `:ConflictMarkerNone`
 
 ```
 ```
