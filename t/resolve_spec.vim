@@ -66,29 +66,6 @@ describe ':ConflictMarkerOurselves'
     end
 end
 
-describe ':ConflictMarkerBoth'
-    before
-        new
-        call s:load()
-        doautocmd BufRead
-    end
-
-    after
-        close!
-    end
-
-    it 'resolves a conflict by removing both modifications'
-        ConflictMarkerBoth
-        Expect getline(1, '$') == ['']
-    end
-
-    it 'makes no change out of marker'
-        normal! G
-        ConflictMarkerBoth
-        Expect getline(1, '$') == g:lines
-    end
-end
-
 describe ':ConflictMarkerNone'
     before
         new
@@ -100,14 +77,37 @@ describe ':ConflictMarkerNone'
         close!
     end
 
-    it 'resolves a conflict by removing nothing'
+    it 'resolves a conflict by removing both modifications'
         ConflictMarkerNone
-        Expect getline(1, '$') == ['ourselves', 'themselves', '']
+        Expect getline(1, '$') == ['']
     end
 
     it 'makes no change out of marker'
         normal! G
         ConflictMarkerNone
+        Expect getline(1, '$') == g:lines
+    end
+end
+
+describe ':ConflictMarkerBoth'
+    before
+        new
+        call s:load()
+        doautocmd BufRead
+    end
+
+    after
+        close!
+    end
+
+    it 'resolves a conflict by removing nothing'
+        ConflictMarkerBoth
+        Expect getline(1, '$') == ['ourselves', 'themselves', '']
+    end
+
+    it 'makes no change out of marker'
+        normal! G
+        ConflictMarkerBoth
         Expect getline(1, '$') == g:lines
     end
 end
