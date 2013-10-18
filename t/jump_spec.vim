@@ -54,6 +54,12 @@ describe ':ConflictMarkerNextHunk'
         ConflictMarkerNextHunk
         Expect line('.') == line('$')
     end
+
+    it 'doesn''t accept at cursor'
+        normal! ggj
+        ConflictMarkerNextHunk
+        Expect line('.') == 9
+    end
 end
 
 describe ':ConflictMarkerPrevHunk'
@@ -80,5 +86,11 @@ describe ':ConflictMarkerPrevHunk'
         normal! gg
         ConflictMarkerPrevHunk
         Expect line('.') == 1
+    end
+
+    it 'doesn''t accept at cursor'
+        normal! Gk
+        ConflictMarkerPrevHunk
+        Expect line('.') == 9
     end
 end
