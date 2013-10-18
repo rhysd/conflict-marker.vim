@@ -60,6 +60,12 @@ describe ':ConflictMarkerNextHunk'
         ConflictMarkerNextHunk
         Expect line('.') == 9
     end
+
+    it 'with bang accepts at cursor'
+        normal! ggj
+        ConflictMarkerNextHunk!
+        Expect line('.') == 2
+    end
 end
 
 describe ':ConflictMarkerPrevHunk'
@@ -92,5 +98,11 @@ describe ':ConflictMarkerPrevHunk'
         normal! Gk
         ConflictMarkerPrevHunk
         Expect line('.') == 9
+    end
+
+    it 'with bang accepts at cursor'
+        normal! Gk
+        ConflictMarkerPrevHunk!
+        Expect line('.') == 16
     end
 end

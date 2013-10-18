@@ -111,8 +111,8 @@ endfunction
 function! conflict_marker#previous_conflict(accept_cursor)
     let pos = getpos('.')
     return s:jump_to_hunk_if_valid(pos, reverse([
-                \ searchpos(g:conflict_marker_end, 'bW'),
+                \ searchpos(g:conflict_marker_end, (a:accept_cursor ? 'bcW' : 'bW')),
                 \ searchpos(g:conflict_marker_separator, 'bcW'),
-                \ searchpos(g:conflict_marker_begin, (a:accept_cursor ? 'bcW' : 'bW')),
+                \ searchpos(g:conflict_marker_begin, 'bcW'),
                 \ ]))
 endfunction

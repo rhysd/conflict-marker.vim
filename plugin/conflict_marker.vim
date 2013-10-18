@@ -18,19 +18,19 @@ call s:var('enable_hooks', 1)
 call s:var('enable_highlight', 1)
 call s:var('enable_matchit', 1)
 
-command! -nargs=0 ConflictMarkerThemselves call conflict_marker#themselves()
-command! -nargs=0 ConflictMarkerOurselves  call conflict_marker#ourselves()
-command! -nargs=0 ConflictMarkerBoth       call conflict_marker#compromise()
-command! -nargs=0 ConflictMarkerNone       call conflict_marker#down_together()
-command! -nargs=0 ConflictMarkerNextHunk   call conflict_marker#next_conflict(0)
-command! -nargs=0 ConflictMarkerPrevHunk   call conflict_marker#previous_conflict(0)
+command! -nargs=0 ConflictMarkerThemselves     call conflict_marker#themselves()
+command! -nargs=0 ConflictMarkerOurselves      call conflict_marker#ourselves()
+command! -nargs=0 ConflictMarkerBoth           call conflict_marker#compromise()
+command! -nargs=0 ConflictMarkerNone           call conflict_marker#down_together()
+command! -nargs=0 -bang ConflictMarkerNextHunk call conflict_marker#next_conflict(<bang>0)
+command! -nargs=0 -bang ConflictMarkerPrevHunk call conflict_marker#previous_conflict(<bang>0)
 
-nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>call conflict_marker#themselves()<CR>
-nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>call conflict_marker#ourselves()<CR>
-nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>call conflict_marker#compromise()<CR>
-nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>call conflict_marker#down_together()<CR>
-nnoremap <silent><Plug>(conflict-marker-next-hunk)  :<C-u>call conflict_marker#next_conflict(0)<CR>
-nnoremap <silent><Plug>(conflict-marker-prev-hunk)  :<C-u>call conflict_marker#previous_conflict(0)<CR>
+nnoremap <silent><Plug>(conflict-marker-themselves) :<C-u>ConflictMarkerThemselves<CR>
+nnoremap <silent><Plug>(conflict-marker-ourselves)  :<C-u>ConflictMarkerOurselves<CR>
+nnoremap <silent><Plug>(conflict-marker-both)       :<C-u>ConflictMarkerBoth<CR>
+nnoremap <silent><Plug>(conflict-marker-none)       :<C-u>ConflictMarkerNone<CR>
+nnoremap <silent><Plug>(conflict-marker-next-hunk)  :<C-u>ConflictMarkerNextHunk<CR>
+nnoremap <silent><Plug>(conflict-marker-prev-hunk)  :<C-u>ConflictMarkerPrevHunk<CR>
 
 function! s:execute_hooks()
     if g:conflict_marker_enable_mappings
