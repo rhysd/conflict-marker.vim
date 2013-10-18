@@ -29,9 +29,68 @@ This feature uses matchit.vim, which is bundled in Vim (`macros/matchit.vim`).
 This plugin defines mappings as default, `ct` for themselves, `co` for ourselves, `cn` for none and `cb` for both.
 
 ### Themselves
+
+```
+<<<<<<< HEAD
+ourselves
+=======
+themselves
+>>>>>>> deadbeef0123
+```
+
+↓`ct`
+
+```
+themselves
+```
+
 ### Ourselves
+
+```
+<<<<<<< HEAD
+ourselves
+=======
+themselves
+>>>>>>> deadbeef0123
+```
+
+↓`ot`
+
+```
+ourselves
+```
+
 ### Adopt Both
+
+```
+<<<<<<< HEAD
+ourselves
+=======
+themselves
+>>>>>>> deadbeef0123
+```
+
+↓cb`
+
+```
+ourselves
+themselves
+```
+
 ### Adopt None
+
+```
+<<<<<<< HEAD
+ourselves
+=======
+themselves
+>>>>>>> deadbeef0123
+```
+
+↓`nb`
+
+```
+```
 
 ## Customize
 
