@@ -15,19 +15,35 @@ License           |conflict-marker.vim-license|
 ==============================================================================
 INTRODUCTION                                  *conflict-marker.vim-introduction*
 
+*conflict-marker.vim* is a plugin for developers fighting against conflicts.
+All features are available iff an opened buffer contains a conflict marker.
+
+conflict-marker.vim does
+1. highlight conflict markers.
+2. jump among conflict markers.
+3. jump within conflict block; begin, separator and end of the block.
+4. resolve conflict with various strategies; "themselves", "ourselves", "none"
+   and "both".
+
 ==============================================================================
 USAGE                                                *conflict-marker.vim-usage*
+
+Please see README.md in below repository page.  TODO
 
 ==============================================================================
 MAPPINGS                                          *conflict-marker.vim-mappings*
 
+Please see README.md in below repository page.  TODO
+
 ==============================================================================
 VARIABLES                                        *conflict-marker.vim-variables*
+
+Please see README.md in below repository page.  TODO
 
 ==============================================================================
 REPOSITORY PAGE                            *conflict-marker.vim-repository-page*
 
-The latest version of |conflict-marker| is available at
+The latest version of |conflict-marker.vim| is available at
 https://github.com/rhysd/conflict-marker.vim
 
 Contributions (pull requests) are welcome. None of them are too short.
@@ -39,7 +55,7 @@ LICENSE                                            *conflict-marker.vim-license*
 
 |conflict-marker.vim| is distributed under MIT license.
 
-  Copyright (c) 2013 rhysd
+  Copyright (c) 2013,2015 rhysd
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
