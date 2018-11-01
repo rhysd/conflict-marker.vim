@@ -4,7 +4,7 @@ set cpo&vim
 function! conflict_marker#detect#markers()
     let pos_save = getpos('.')
     try
-        keepjumps normal! gg
+        keepjumps call cursor(1, 1)
         for marker in [g:conflict_marker_begin, g:conflict_marker_separator, g:conflict_marker_end]
             if search(marker, 'cW') == 0
                 return 0
