@@ -72,17 +72,34 @@ function! s:set_conflict_marker_to_match_words()
     let b:conflict_marker_match_words_loaded = 1
 endfunction
 
+function! s:create_highlight_links()
+    if exists('g:conflict_marker_highlight_group') && strlen(g:conflict_marker_highlight_group)
+        execute 'highlight link ConflictMarkerBegin '.g:conflict_marker_highlight_group
+        execute 'highlight link ConflictMarkerSeparator '.g:conflict_marker_highlight_group
+        execute 'highlight link ConflictMarkerEnd '.g:conflict_marker_highlight_group
+    endif
+endfunction
+
 function! s:on_detected()
     if g:conflict_marker_enable_hooks
         call s:execute_hooks()
     endif
 
     if g:conflict_marker_enable_highlight
-        execute printf('syntax match ConflictMarker containedin=ALL /\%(%s\|%s\|%s\)/',
+        execute printf('syntax match ConflictMarkerBegin containedin=ALL /%s/',
+                \      g:conflict_marker_begin)
+        execute printf('syntax region ConflictMarkerOurs containedin=ALL start=/%s/hs=e+1 end=/%s\&/',
                 \      g:conflict_marker_begin,
+                \      g:conflict_marker_separator)
+        execute printf('syntax match ConflictMarkerSeparator containedin=ALL /%s/',
+                \      g:conflict_marker_separator)
+        execute printf('syntax region ConflictMarkerTheirs containedin=ALL start=/%s/hs=e+1 end=/%s\&/',
                 \      g:conflict_marker_separator,
                 \      g:conflict_marker_end)
-        execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+        execute printf('syntax match ConflictMarkerEnd containedin=ALL /%s/',
+                \      g:conflict_marker_end)
+
+        call s:create_highlight_links()
     endif
 
     if g:conflict_marker_enable_matchit
@@ -96,7 +113,7 @@ augroup ConflictMarkerDetect
 augroup END
 
 if g:conflict_marker_enable_highlight
-    execute 'highlight link ConflictMarker '.g:conflict_marker_highlight_group
+    call s:create_highlight_links()
 endif
 
 let &cpo = s:save_cpo
