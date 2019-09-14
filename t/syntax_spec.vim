@@ -46,14 +46,22 @@ describe 'Conflict marker'
 
     it 'is highlighted'
         doautocmd BufReadPost
-        for l in [1, 3, 5, 8, 10, 12, 15, 17, 19]
-            Expect GetHighlight(l, 1) ==# 'ConflictMarker'
+        for l in [1, 8, 15]
+            Expect GetHighlight(l, 1) ==# 'ConflictMarkerBegin'
+            Expect GetHighlight(l+1, 2) ==# 'ConflictMarkerOurs'
+            Expect GetHighlight(l+2, 3) ==# 'ConflictMarkerSeparator'
+            Expect GetHighlight(l+3, 4) ==# 'ConflictMarkerTheirs'
+            Expect GetHighlight(l+4, 5) ==# 'ConflictMarkerEnd'
         endfor
     end
 
     it 'is not highlighted if no marker is detected at BufReadPost'
-        for l in [1, 3, 5, 8, 10, 12, 15, 17, 19]
-            Expect GetHighlight(l, 1) !=# 'ConflictMarker'
+        for l in [1, 8, 15]
+            Expect GetHighlight(l, 1) !=# 'ConflictMarkerBegin'
+            Expect GetHighlight(l+1, 2) !=# 'ConflictMarkerOurs'
+            Expect GetHighlight(l+2, 3) !=# 'ConflictMarkerSeparator'
+            Expect GetHighlight(l+3, 4) !=# 'ConflictMarkerTheirs'
+            Expect GetHighlight(l+4, 5) !=# 'ConflictMarkerEnd'
         endfor
     end
 end
