@@ -32,22 +32,98 @@ For example, you can install this plugin with [neobundle.vim](https://github.com
 NeoBundle 'rhysd/conflict-marker.vim'
 ```
 
+## Conflict Markers
+
+Conflict markers can be customized using the following options:
+
+```vim
+" Default values
+let g:conflict_marker_begin = '^<<<<<<< \@='
+let g:conflict_marker_separator = '^=======$'
+let g:conflict_marker_end   = '^>>>>>>> \@='
+```
+
 ## Highlight Conflict Markers
 
-Conflict markers (`<<<<<<<`, `=======` and `>>>>>>>` as default) are highlighted automatically.
+Conflict markers are highlighted by default. Use the following option to disable
+highlighting:
+
+```vim
+let g:conflict_marker_enable_highlight = 0
+```
+
+Each conflict marker and conflict part is associated to a specific syntax group:
+
+| marker / part | syntax group |
+|------|--------------|
+| begin conflict marker (`<<<<<<<`) | `ConflictMarkerBegin` |
+| *ours* part of the conflict | `ConflictMarkerOurs` |
+| separator conflict marker (`=======`) | `ConflictMarkerSeparator` |
+| *theirs* part of the conflict | `ConflictMarkerTheirs` |
+| end conflict marker (`>>>>>>>`) | `ConflictMarkerEnd` |
+
+By default, `ConflictMarkerBegin`, `ConflictMarkerSeparator` and
+`ConflictMarkerEnd` are linked to the `Error` syntax group. To link them to
+another syntax group, use the following option:
+
+```vim
+" Default value
+let g:conflict_marker_highlight_group = 'Error'
+```
+
+`ConflictMarkerOurs` and `ConflictMarkerTheirs` are not linked to any syntax
+group by default, and can be used to customize the highlight of the *ours* and *theirs*
+parts of the conflict.
+
+To use a specific highlight for each marker, disable the default highlight
+group, and define your own highlights for each syntax group.
+
+**Example:**
+
+```vim
+" disable the default highlight group
+let g:conflict_marker_highlight_group = ''
+
+" Include text after begin and end markers
+let g:conflict_marker_begin = '^<<<<<<< .*$'
+let g:conflict_marker_end   = '^>>>>>>> .*$'
+
+highlight ConflictMarkerBegin guibg=#2f7366
+highlight ConflictMarkerOurs guibg=#2e5049
+highlight ConflictMarkerTheirs guibg=#344f69
+highlight ConflictMarkerEnd guibg=#2f628e
+```
+
+![Screenshot_20190911_212653](https://user-images.githubusercontent.com/454315/64728297-f8953d80-d4da-11e9-9033-df5bfdee2f7a.png)
 
 ## Jump among Conflict Markers
 
-`[x` and `]x` mappings are defined as default.
+`[x` and `]x` mappings are defined as default. Use the following option to
+disable them:
+
+```vim
+let g:conflict_marker_enable_mappings = 0
+```
 
 ## Jump within a Conflict Marker
 
 This feature uses matchit.vim, which is bundled in Vim (`macros/matchit.vim`).
-`%` mapping is extened by matchit.vim.
+`%` mapping is extended by matchit.vim. Use the following option to disable this
+feature:
+
+```vim
+let g:conflict_marker_enable_matchit = 0
+```
 
 ## Resolve a Conflict with Various Strategies
 
-This plugin defines mappings as default, `ct` for themselves, `co` for ourselves, `cn` for none and `cb` for both.
+This plugin defines mappings as default: `ct` for themselves, `co` for
+ourselves, `cn` for none and `cb` for both.  Use the following option to disable
+mappings:
+
+```vim
+let g:conflict_marker_enable_mappings = 0
+```
 
 ### Themselves
 
@@ -59,7 +135,7 @@ themselves
 >>>>>>> deadbeef0123
 ```
 
-↓`ct` or `ConflictMarkerThemselves`
+↓`ct` or `:ConflictMarkerThemselves`
 
 ```
 themselves
