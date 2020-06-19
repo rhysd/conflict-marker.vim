@@ -10,9 +10,9 @@ function! s:var(name, default)
 endfunction
 
 call s:var('highlight_group', 'Error')
-call s:var('begin', '^<<<<<<< \@=')
+call s:var('begin', '^<<<<<<<')
 call s:var('separator', '^=======$')
-call s:var('end', '^>>>>>>> \@=')
+call s:var('end', '^>>>>>>>')
 call s:var('enable_mappings', 1)
 call s:var('enable_hooks', 1)
 call s:var('enable_highlight', 1)
