@@ -109,7 +109,7 @@ endfunction
 
 augroup ConflictMarkerDetect
     autocmd!
-    autocmd BufReadPost * if conflict_marker#detect#markers() | call s:on_detected() | endif
+    autocmd BufEnter,FocusGained,ColorScheme * if conflict_marker#detect#markers() | call s:on_detected() | endif
 augroup END
 
 if g:conflict_marker_enable_highlight
