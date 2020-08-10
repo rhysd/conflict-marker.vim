@@ -45,7 +45,7 @@ describe 'Conflict marker'
     end
 
     it 'is highlighted'
-        doautocmd BufReadPost
+        doautocmd BufEnter
         for l in [1, 8, 15]
             Expect GetHighlight(l, 1) ==# 'ConflictMarkerBegin'
             Expect GetHighlight(l+1, 2) ==# 'ConflictMarkerOurs'
@@ -55,7 +55,7 @@ describe 'Conflict marker'
         endfor
     end
 
-    it 'is not highlighted if no marker is detected at BufReadPost'
+    it 'is not highlighted if no marker is detected at BufEnter'
         for l in [1, 8, 15]
             Expect GetHighlight(l, 1) !=# 'ConflictMarkerBegin'
             Expect GetHighlight(l+1, 2) !=# 'ConflictMarkerOurs'

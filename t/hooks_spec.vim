@@ -28,7 +28,7 @@ describe 'g:conflict_marker_hooks'
 
     it 'does nothing if does not have on_detected hook'
         let g:conflict_marker_hooks = {}
-        Expect 'doautocmd BufReadPost' not to_throw_exception
+        Expect 'doautocmd BufEnter' not to_throw_exception
     end
 
     it 'execute on_detected hook specified by string'
@@ -38,7 +38,7 @@ describe 'g:conflict_marker_hooks'
         endfunction
         let g:conflict_marker_hooks = {'on_detected' : 'TestHook'}
 
-        doautocmd BufReadPost
+        doautocmd BufEnter
         Expect g:test_hooked to_be_true
         unlet g:test_hooked
     end
@@ -50,7 +50,7 @@ describe 'g:conflict_marker_hooks'
             let g:test_hooked = 1
         endfunction
 
-        doautocmd BufReadPost
+        doautocmd BufEnter
         Expect g:test_hooked to_be_true
         unlet g:test_hooked
     end

@@ -50,7 +50,7 @@ describe 'Default settings'
         for l in range(1, len(lines))
             call setline(l, lines[l-1])
         endfor
-        doautocmd BufReadPost
+        doautocmd BufEnter
 
         Expect ']x' to_map_in 'n'
         Expect '[x' to_map_in 'n'
