@@ -24,7 +24,7 @@ describe ':ConflictMarkerThemselves'
     before
         new
         call s:load()
-        doautocmd BufRead
+        doautocmd BufEnter
     end
 
     after
@@ -47,7 +47,7 @@ describe ':ConflictMarkerOurselves'
     before
         new
         call s:load()
-        doautocmd BufRead
+        doautocmd BufEnter
     end
 
     after
@@ -70,7 +70,7 @@ describe ':ConflictMarkerNone'
     before
         new
         call s:load()
-        doautocmd BufRead
+        doautocmd BufEnter
     end
 
     after
@@ -93,7 +93,7 @@ describe ':ConflictMarkerBoth'
     before
         new
         call s:load()
-        doautocmd BufRead
+        doautocmd BufEnter
     end
 
     after

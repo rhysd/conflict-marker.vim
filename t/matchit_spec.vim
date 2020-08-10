@@ -19,7 +19,7 @@ describe 'matchit'
         for l in range(1, len(s:lines))
             call setline(l, s:lines[l-1])
         endfor
-        doautocmd BufRead
+        doautocmd BufEnter
     end
 
     after
