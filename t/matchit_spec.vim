@@ -28,7 +28,7 @@ describe 'matchit'
 
     it 'defines b:match_words'
         Expect 'b:match_words' to_exist
-        Expect b:match_words =~# '\V,^<<<<<<< \\@=:^=======$:^>>>>>>> \\@='
+        Expect b:match_words =~# ',^<<<<<<<:^=======$:^>>>>>>>'
     end
 
     it 'can jump within a conflict marker'
