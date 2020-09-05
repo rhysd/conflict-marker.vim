@@ -39,6 +39,7 @@ Conflict markers can be customized using the following options:
 ```vim
 " Default values
 let g:conflict_marker_begin = '^<<<<<<< \@='
+let g:conflict_marker_common_ancestors = '^||||||| .*$'
 let g:conflict_marker_separator = '^=======$'
 let g:conflict_marker_end   = '^>>>>>>> \@='
 ```
@@ -58,21 +59,25 @@ Each conflict marker and conflict part is associated to a specific syntax group:
 |------|--------------|
 | begin conflict marker (`<<<<<<<`) | `ConflictMarkerBegin` |
 | *ours* part of the conflict | `ConflictMarkerOurs` |
+| common ancestors marker (`|||||||`) | `ConflictMarkerCommonAncestors` |
+| common ancestors part of the conflict | `ConflictMarkerCommonAncestorsHunk` |
 | separator conflict marker (`=======`) | `ConflictMarkerSeparator` |
 | *theirs* part of the conflict | `ConflictMarkerTheirs` |
 | end conflict marker (`>>>>>>>`) | `ConflictMarkerEnd` |
 
-By default, `ConflictMarkerBegin`, `ConflictMarkerSeparator` and
-`ConflictMarkerEnd` are linked to the `Error` syntax group. To link them to
-another syntax group, use the following option:
+By default, `ConflictMarkerBegin`, `ConflictMarkerSeparator`,
+`ConflictMarkerCommonAncestors` and `ConflictMarkerEnd` are
+linked to the `Error` syntax group.
+To link them to another syntax group, use the following option:
 
 ```vim
 " Default value
 let g:conflict_marker_highlight_group = 'Error'
 ```
 
-`ConflictMarkerOurs` and `ConflictMarkerTheirs` are not linked to any syntax
-group by default, and can be used to customize the highlight of the *ours* and *theirs*
+`ConflictMarkerOurs`, `ConflictMarkerTheirs`, and
+`ConflictMarkerCommonAncestors` are not linked to any syntax group by default,
+and can be used to customize the highlight of the *ours* and *theirs*
 parts of the conflict.
 
 To use a specific highlight for each marker, disable the default highlight
@@ -92,6 +97,7 @@ highlight ConflictMarkerBegin guibg=#2f7366
 highlight ConflictMarkerOurs guibg=#2e5049
 highlight ConflictMarkerTheirs guibg=#344f69
 highlight ConflictMarkerEnd guibg=#2f628e
+highlight ConflictMarkerCommonAncestorsHunk guibg=#754a81
 ```
 
 ![Screenshot_20190911_212653](https://user-images.githubusercontent.com/454315/64728297-f8953d80-d4da-11e9-9033-df5bfdee2f7a.png)
