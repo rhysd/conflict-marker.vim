@@ -26,6 +26,24 @@ function! s:current_conflict_end()
     return end
 endfunction
 
+function! s:current_conflict_common_ancestors()
+    " when separator is before cursor
+    let before_begin = s:current_conflict_begin()
+    let before_sep = searchpos(g:conflict_marker_common_ancestors, 'bcnW')
+    if before_sep != [0, 0] && before_begin != [0, 0] && before_begin[0] < before_sep[0]
+        return before_sep
+    endif
+
+    " when separator is after cursor
+    let after_end = s:current_conflict_end()
+    let after_sep = searchpos(g:conflict_marker_common_ancestors, 'cnW')
+    if after_sep != [0, 0] && after_end != [0, 0] && after_sep[0] < after_end[0]
+        return after_sep
+    endif
+
+    return [0, 0]
+endfunction
+
 function! s:current_conflict_separator()
     " when separator is before cursor
     let before_begin = s:current_conflict_begin()
@@ -65,7 +83,12 @@ endfunction
 function! conflict_marker#ourselves()
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
-    execute markers[1][0].','.markers[2][0].'delete'
+	let common_ancestors_pos = s:current_conflict_common_ancestors()
+	if common_ancestors_pos != [0, 0]
+		execute common_ancestors_pos[0].','.markers[2][0].'delete'
+	else
+		execute markers[1][0].','.markers[2][0].'delete'
+	endif
     execute markers[0][0].'delete'
     silent! call repeat#set("\<Plug>(conflict-marker-ourselves)", v:count)
 endfunction
@@ -83,7 +106,12 @@ function! conflict_marker#compromise()
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
-    execute markers[1][0].'delete'
+	let common_ancestors_pos = s:current_conflict_common_ancestors()
+	if common_ancestors_pos != [0, 0]
+		execute common_ancestors_pos[0].','.markers[1][0].'delete'
+	else
+		execute markers[1][0].'delete'
+	endif
     execute markers[0][0].'delete'
     silent! call repeat#set("\<Plug>(conflict-marker-none)", v:count)
 endfunction
