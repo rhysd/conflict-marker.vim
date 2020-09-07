@@ -6,6 +6,8 @@ runtime plugin/conflict_marker.vim
 let s:lines = [
             \ "<<<<<<< HEAD",
             \ "ourselves1",
+            \ "||||||| merged common ancestors",
+            \ "common ancestors1",
             \ "=======",
             \ "themselves1",
             \ ">>>>>>> 8374eabc232",
@@ -28,7 +30,7 @@ describe 'matchit'
 
     it 'defines b:match_words'
         Expect 'b:match_words' to_exist
-        Expect b:match_words =~# ',^<<<<<<<:^=======$:^>>>>>>>'
+        Expect b:match_words =~# ',^<<<<<<<:^||||||| .*$:^=======$:^>>>>>>>'
     end
 
     it 'can jump within a conflict marker'
@@ -38,8 +40,8 @@ describe 'matchit'
         normal %
         Expect line('.') == 5
         normal %
-        Expect line('.') == 1
+        Expect line('.') == 7
         normal %
-        Expect line('.') == 3
+        Expect line('.') == 1
     end
 end
