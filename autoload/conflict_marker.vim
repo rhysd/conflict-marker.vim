@@ -83,12 +83,12 @@ endfunction
 function! conflict_marker#ourselves()
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
-	let common_ancestors_pos = s:current_conflict_common_ancestors()
-	if common_ancestors_pos != [0, 0]
-		execute common_ancestors_pos[0].','.markers[2][0].'delete'
-	else
-		execute markers[1][0].','.markers[2][0].'delete'
-	endif
+    let common_ancestors_pos = s:current_conflict_common_ancestors()
+    if common_ancestors_pos != [0, 0]
+        execute common_ancestors_pos[0].','.markers[2][0].'delete'
+    else
+        execute markers[1][0].','.markers[2][0].'delete'
+    endif
     execute markers[0][0].'delete'
     silent! call repeat#set("\<Plug>(conflict-marker-ourselves)", v:count)
 endfunction
@@ -106,12 +106,12 @@ function! conflict_marker#compromise()
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
-	let common_ancestors_pos = s:current_conflict_common_ancestors()
-	if common_ancestors_pos != [0, 0]
-		execute common_ancestors_pos[0].','.markers[1][0].'delete'
-	else
-		execute markers[1][0].'delete'
-	endif
+    let common_ancestors_pos = s:current_conflict_common_ancestors()
+    if common_ancestors_pos != [0, 0]
+        execute common_ancestors_pos[0].','.markers[1][0].'delete'
+    else
+        execute markers[1][0].'delete'
+    endif
     execute markers[0][0].'delete'
     silent! call repeat#set("\<Plug>(conflict-marker-none)", v:count)
 endfunction
