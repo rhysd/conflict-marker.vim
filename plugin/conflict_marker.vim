@@ -11,6 +11,7 @@ endfunction
 
 call s:var('highlight_group', 'Error')
 call s:var('begin', '^<<<<<<<')
+call s:var('common_ancestors', '^||||||| .*$')
 call s:var('separator', '^=======$')
 call s:var('end', '^>>>>>>>')
 call s:var('enable_mappings', 1)
@@ -65,8 +66,9 @@ function! s:set_conflict_marker_to_match_words()
     endif
 
     let b:match_words = get(b:, 'match_words', '')
-                \       . printf(',%s:%s:%s',
+                \       . printf(',%s:%s:%s:%s',
                 \                g:conflict_marker_begin,
+                \                g:conflict_marker_common_ancestors,
                 \                g:conflict_marker_separator,
                 \                g:conflict_marker_end)
     let b:conflict_marker_match_words_loaded = 1
@@ -75,6 +77,7 @@ endfunction
 function! s:create_highlight_links()
     if exists('g:conflict_marker_highlight_group') && strlen(g:conflict_marker_highlight_group)
         execute 'highlight link ConflictMarkerBegin '.g:conflict_marker_highlight_group
+        execute 'highlight link ConflictMarkerCommonAncestors '.g:conflict_marker_highlight_group
         execute 'highlight link ConflictMarkerSeparator '.g:conflict_marker_highlight_group
         execute 'highlight link ConflictMarkerEnd '.g:conflict_marker_highlight_group
     endif
@@ -90,6 +93,11 @@ function! s:on_detected()
                 \      g:conflict_marker_begin)
         execute printf('syntax region ConflictMarkerOurs containedin=ALL start=/%s/hs=e+1 end=/%s\&/',
                 \      g:conflict_marker_begin,
+                \      g:conflict_marker_separator)
+        execute printf('syntax match ConflictMarkerCommonAncestors containedin=ALL /%s/',
+                \      g:conflict_marker_common_ancestors)
+        execute printf('syntax region ConflictMarkerCommonAncestorsHunk containedin=ALL start=/%s/hs=e+1 end=/%s\&/',
+                \      g:conflict_marker_common_ancestors,
                 \      g:conflict_marker_separator)
         execute printf('syntax match ConflictMarkerSeparator containedin=ALL /%s/',
                 \      g:conflict_marker_separator)
