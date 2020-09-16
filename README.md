@@ -9,9 +9,10 @@ conflict-marker.vim does:
 - highlight conflict markers.
 - jump among conflict markers.
 - jump within conflict block; beginning, separator and end of the block.
-- resolve conflict with various strategies; themselves, ourselves, none and both strategies.
+- resolve conflict with various strategies; theirs, ours, none and both strategies.
 
-This plugin tries to define some mappings if a conflict marker is detected. If you don't want to use default mappings, set `g:conflict_marker_enable_mappings` to `0`.
+This plugin tries to define some mappings if a conflict marker is detected.
+If you don't want to use default mappings, set `g:conflict_marker_enable_mappings` to `0`.
 
 ## Installation
 
@@ -123,70 +124,69 @@ let g:conflict_marker_enable_matchit = 0
 
 ## Resolve a Conflict with Various Strategies
 
-This plugin defines mappings as default: `ct` for themselves, `co` for
-ourselves, `cn` for none and `cb` for both.  Use the following option to disable
-mappings:
+This plugin defines mappings as default: `ct` for theirs, `co` for ours, `cn` for
+none and `cb` for both.  Use the following option to disable mappings:
 
 ```vim
 let g:conflict_marker_enable_mappings = 0
 ```
 
-### Themselves
+### Theirs
 
 ```
 <<<<<<< HEAD
-ourselves
+ours
 =======
-themselves
+theirs
 >>>>>>> deadbeef0123
 ```
 
 ↓`ct` or `:ConflictMarkerThemselves`
 
 ```
-themselves
+theirs
 ```
 
-### Ourselves
+### Ours
 
 ```
 <<<<<<< HEAD
-ourselves
+ours
 =======
-themselves
+theirs
 >>>>>>> deadbeef0123
 ```
 
 ↓`co` or `:ConflictMarkerOurselves`
 
 ```
-ourselves
+ours
 ```
 
 ### Adopt Both
 
 ```
 <<<<<<< HEAD
-ourselves
+ours
 =======
-themselves
+theirs
 >>>>>>> deadbeef0123
 ```
 
 ↓`cb` or `:ConflictMarkerBoth`
 
 ```
-ourselves
-themselves
+ours
+theirs
 ```
 
 ### Adopt None
 
 ```
 <<<<<<< HEAD
-ourselves
+ours
 =======
-themselves
+theirs
 >>>>>>> deadbeef0123
 ```
 
@@ -202,7 +202,7 @@ themselves
 This plugin is distributed under MIT license.
 
 ```
-Copyright (c) 2013,2015 rhysd
+Copyright (c) 2013 rhysd
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
