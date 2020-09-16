@@ -60,7 +60,7 @@ Each conflict marker and conflict part is associated to a specific syntax group:
 |------|--------------|
 | begin conflict marker (`<<<<<<<`) | `ConflictMarkerBegin` |
 | *ours* part of the conflict | `ConflictMarkerOurs` |
-| common ancestors marker (`|||||||`) | `ConflictMarkerCommonAncestors` |
+| common ancestors marker (`\|\|\|\|\|\|\|`) | `ConflictMarkerCommonAncestors` |
 | common ancestors part of the conflict | `ConflictMarkerCommonAncestorsHunk` |
 | separator conflict marker (`=======`) | `ConflictMarkerSeparator` |
 | *theirs* part of the conflict | `ConflictMarkerTheirs` |
