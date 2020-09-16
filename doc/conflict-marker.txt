@@ -29,16 +29,19 @@ conflict-marker.vim does
 USAGE                                                *conflict-marker.vim-usage*
 
 Please see README.md in below repository page.  TODO
+https://github.com/rhysd/conflict-marker.vim/blob/master/README.md
 
 ==============================================================================
 MAPPINGS                                          *conflict-marker.vim-mappings*
 
 Please see README.md in below repository page.  TODO
+https://github.com/rhysd/conflict-marker.vim/blob/master/README.md
 
 ==============================================================================
 VARIABLES                                        *conflict-marker.vim-variables*
 
 Please see README.md in below repository page.  TODO
+https://github.com/rhysd/conflict-marker.vim/blob/master/README.md
 
 ==============================================================================
 REPOSITORY PAGE                            *conflict-marker.vim-repository-page*
