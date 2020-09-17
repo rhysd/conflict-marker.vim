@@ -1,0 +1,22 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+      - uses: rhysd/action-setup-vim@v1
+      - run: bundle install --jobs=3 --retry=3
+      - run: rake ci
+
+  vint:
+    name: Run vint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - run: pip install vim-vint
+      - run: vint --warning --verbose --enable-neovim ./autoload ./plugin
