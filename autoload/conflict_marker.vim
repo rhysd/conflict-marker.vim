@@ -4,7 +4,7 @@
 " I consider the extensibility of this plugin and markers are customizable,
 " I don't throw the possibility of characterwise conflict hunks away.
 
-function! s:current_conflict_begin()
+function! s:current_conflict_begin() abort
     let begin = searchpos(g:conflict_marker_begin, 'bcnW')
     let before_end = searchpos(g:conflict_marker_end, 'bnW')
 
@@ -15,7 +15,7 @@ function! s:current_conflict_begin()
     return begin
 endfunction
 
-function! s:current_conflict_end()
+function! s:current_conflict_end() abort
     let after_begin = searchpos(g:conflict_marker_begin, 'nW')
     let end = searchpos(g:conflict_marker_end, 'cnW')
 
@@ -26,7 +26,7 @@ function! s:current_conflict_end()
     return end
 endfunction
 
-function! s:current_conflict_common_ancestors()
+function! s:current_conflict_common_ancestors() abort
     " when separator is before cursor
     let before_begin = s:current_conflict_begin()
     let before_sep = searchpos(g:conflict_marker_common_ancestors, 'bcnW')
@@ -44,7 +44,7 @@ function! s:current_conflict_common_ancestors()
     return [0, 0]
 endfunction
 
-function! s:current_conflict_separator()
+function! s:current_conflict_separator() abort
     " when separator is before cursor
     let before_begin = s:current_conflict_begin()
     let before_sep = searchpos(g:conflict_marker_separator, 'bcnW')
@@ -62,16 +62,16 @@ function! s:current_conflict_separator()
     return [0, 0]
 endfunction
 
-function! s:valid_hunk(hunk)
+function! s:valid_hunk(hunk) abort
     return filter(copy(a:hunk), 'v:val == [0, 0]') == []
 endfunction
 
-function! conflict_marker#markers()
+function! conflict_marker#markers() abort
     return [s:current_conflict_begin(), s:current_conflict_separator(), s:current_conflict_end()]
 endfunction
 
 " Note: temporary implementation, linewise
-function! conflict_marker#themselves()
+function! conflict_marker#themselves() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
@@ -80,7 +80,7 @@ function! conflict_marker#themselves()
 endfunction
 
 " Note: temporary implementation, linewise
-function! conflict_marker#ourselves()
+function! conflict_marker#ourselves() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     let common_ancestors_pos = s:current_conflict_common_ancestors()
@@ -94,7 +94,7 @@ function! conflict_marker#ourselves()
 endfunction
 
 " Note: temporary implementation, linewise
-function! conflict_marker#down_together()
+function! conflict_marker#down_together() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[0][0].','.markers[2][0].'delete'
@@ -102,7 +102,7 @@ function! conflict_marker#down_together()
 endfunction
 
 " Note: temporary implementation, linewise
-function! conflict_marker#compromise()
+function! conflict_marker#compromise() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
@@ -116,7 +116,7 @@ function! conflict_marker#compromise()
     silent! call repeat#set("\<Plug>(conflict-marker-none)", v:count)
 endfunction
 
-function! s:jump_to_hunk_if_valid(original_pos, hunk)
+function! s:jump_to_hunk_if_valid(original_pos, hunk) abort
     if s:valid_hunk(a:hunk)
         call cursor(a:hunk[0][0], a:hunk[0][1])
         return 1
@@ -127,7 +127,7 @@ function! s:jump_to_hunk_if_valid(original_pos, hunk)
     endif
 endfunction
 
-function! conflict_marker#next_conflict(accept_cursor)
+function! conflict_marker#next_conflict(accept_cursor) abort
     let pos = getpos('.')
     return s:jump_to_hunk_if_valid(pos, [
                 \ searchpos(g:conflict_marker_begin, (a:accept_cursor ? 'cW' : 'W')),
@@ -136,7 +136,7 @@ function! conflict_marker#next_conflict(accept_cursor)
                 \ ])
 endfunction
 
-function! conflict_marker#previous_conflict(accept_cursor)
+function! conflict_marker#previous_conflict(accept_cursor) abort
     let pos = getpos('.')
     return s:jump_to_hunk_if_valid(pos, reverse([
                 \ searchpos(g:conflict_marker_end, (a:accept_cursor ? 'bcW' : 'bW')),
