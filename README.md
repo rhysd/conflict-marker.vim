@@ -1,6 +1,5 @@
 Highlight, Jump and Resolve Conflict Markers Quickly in Vim
 ===========================================================
-[![Build Status](https://travis-ci.org/rhysd/conflict-marker.vim.png)](https://travis-ci.org/rhysd/conflict-marker.vim)
 [![CI](https://github.com/rhysd/conflict-marker.vim/workflows/CI/badge.svg?event=push)](https://github.com/rhysd/conflict-marker.vim/actions?query=workflow%3ACI)
 
 conflict-marker.vim is Vim plugin for developers fighting against conflicts.
