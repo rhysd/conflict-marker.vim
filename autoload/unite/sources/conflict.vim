@@ -8,11 +8,11 @@ let s:source = {
             \ 'hooks' : {},
             \ }
 
-function! unite#sources#conflict#define()
+function! unite#sources#conflict#define() abort
     return s:source
 endfunction
 
-function! s:source.hooks.on_init(args, context)
+function! s:source.hooks.on_init(args, context) abort
     if ! conflict_marker#detect#markers()
         return
     endif
@@ -43,7 +43,7 @@ function! s:source.hooks.on_init(args, context)
     call setpos('.', pos_save)
 endfunction
 
-function! s:source.gather_candidates(args, context)
+function! s:source.gather_candidates(args, context) abort
     if ! has_key(a:context, 'source__markers')
         return []
     endif

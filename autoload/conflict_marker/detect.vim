@@ -1,7 +1,7 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! conflict_marker#detect#markers()
+function! conflict_marker#detect#markers() abort
     let pos_save = getpos('.')
     try
         keepjumps call cursor(1, 1)
