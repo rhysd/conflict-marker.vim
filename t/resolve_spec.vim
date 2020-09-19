@@ -100,7 +100,7 @@ describe ':ConflictMarkerBoth'
         close!
     end
 
-    it 'resolves a conflict by removing nothing'
+    it 'resolves a conflict by keeping theirs and ours'
         ConflictMarkerBoth
         Expect getline(1, '$') == ['ourselves', 'themselves', '']
     end
@@ -108,6 +108,29 @@ describe ':ConflictMarkerBoth'
     it 'makes no change out of marker'
         normal! G
         ConflictMarkerBoth
+        Expect getline(1, '$') == g:lines
+    end
+end
+
+describe ':ConflictMarkerBoth!'
+    before
+        new
+        call s:load()
+        doautocmd BufEnter
+    end
+
+    after
+        close!
+    end
+
+    it 'resolves a conflict by keeping theirs and ours in reverse order'
+        ConflictMarkerBoth!
+        Expect getline(1, '$') == ['themselves', 'ourselves', '']
+    end
+
+    it 'makes no change out of marker'
+        normal! G
+        ConflictMarkerBoth!
         Expect getline(1, '$') == g:lines
     end
 end
