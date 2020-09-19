@@ -26,36 +26,32 @@ function! s:current_conflict_end() abort
     return end
 endfunction
 
-function! s:current_conflict_common_ancestors() abort
+function! s:current_conflict_common_ancestors(before_begin, after_end) abort
     " when separator is before cursor
-    let before_begin = s:current_conflict_begin()
     let before_sep = searchpos(g:conflict_marker_common_ancestors, 'bcnW')
-    if before_sep != [0, 0] && before_begin != [0, 0] && before_begin[0] < before_sep[0]
+    if before_sep != [0, 0] && a:before_begin != [0, 0] && a:before_begin[0] < before_sep[0]
         return before_sep
     endif
 
     " when separator is after cursor
-    let after_end = s:current_conflict_end()
     let after_sep = searchpos(g:conflict_marker_common_ancestors, 'cnW')
-    if after_sep != [0, 0] && after_end != [0, 0] && after_sep[0] < after_end[0]
+    if after_sep != [0, 0] && a:after_end != [0, 0] && after_sep[0] < a:after_end[0]
         return after_sep
     endif
 
     return [0, 0]
 endfunction
 
-function! s:current_conflict_separator() abort
+function! s:current_conflict_separator(before_begin, after_end) abort
     " when separator is before cursor
-    let before_begin = s:current_conflict_begin()
     let before_sep = searchpos(g:conflict_marker_separator, 'bcnW')
-    if before_sep != [0, 0] && before_begin != [0, 0] && before_begin[0] < before_sep[0]
+    if before_sep != [0, 0] && a:before_begin != [0, 0] && a:before_begin[0] < before_sep[0]
         return before_sep
     endif
 
     " when separator is after cursor
-    let after_end = s:current_conflict_end()
     let after_sep = searchpos(g:conflict_marker_separator, 'cnW')
-    if after_sep != [0, 0] && after_end != [0, 0] && after_sep[0] < after_end[0]
+    if after_sep != [0, 0] && a:after_end != [0, 0] && after_sep[0] < a:after_end[0]
         return after_sep
     endif
 
@@ -67,7 +63,9 @@ function! s:valid_hunk(hunk) abort
 endfunction
 
 function! conflict_marker#markers() abort
-    return [s:current_conflict_begin(), s:current_conflict_separator(), s:current_conflict_end()]
+    let begin = s:current_conflict_begin()
+    let end = s:current_conflict_end()
+    return [begin, s:current_conflict_separator(begin, end), end]
 endfunction
 
 " Note: temporary implementation, linewise
@@ -83,7 +81,7 @@ endfunction
 function! conflict_marker#ourselves() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
-    let common_ancestors_pos = s:current_conflict_common_ancestors()
+    let common_ancestors_pos = s:current_conflict_common_ancestors(markers[0], markers[2])
     if common_ancestors_pos != [0, 0]
         execute common_ancestors_pos[0].','.markers[2][0].'delete'
     else
@@ -106,7 +104,7 @@ function! conflict_marker#compromise(reverse) abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
-    let common_ancestors_pos = s:current_conflict_common_ancestors()
+    let common_ancestors_pos = s:current_conflict_common_ancestors(markers[0], markers[2])
     if common_ancestors_pos != [0, 0]
         execute common_ancestors_pos[0].','.markers[1][0].'delete'
     else
