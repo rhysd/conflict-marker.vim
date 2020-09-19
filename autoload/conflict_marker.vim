@@ -102,7 +102,7 @@ function! conflict_marker#down_together() abort
 endfunction
 
 " Note: temporary implementation, linewise
-function! conflict_marker#compromise() abort
+function! conflict_marker#compromise(reverse) abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
@@ -113,6 +113,14 @@ function! conflict_marker#compromise() abort
         execute markers[1][0].'delete'
     endif
     execute markers[0][0].'delete'
+    if a:reverse
+        let theirs_start = markers[1][0] - 2 + 1
+        let theirs_end = markers[2][0] - 3
+        let theirs = getline(theirs_start, theirs_end)
+        execute theirs_start . ',' . theirs_end . 'delete'
+        let ours_start = markers[0][0]
+        call append(ours_start - 1, theirs)
+    endif
     silent! call repeat#set("\<Plug>(conflict-marker-both)", v:count)
 endfunction
 
