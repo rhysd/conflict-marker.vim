@@ -36,7 +36,7 @@ function! s:load(lines)
 endfunction
 
 describe ':ConflictMarkerThemselves'
-    context 'diff2'
+    context 'applying to diff2'
         before
             call s:load(g:lines_diff2)
         end
@@ -57,7 +57,7 @@ describe ':ConflictMarkerThemselves'
         end
     end
 
-    context 'diff3'
+    context 'applying to diff3'
         before
             call s:load(g:lines_diff3)
         end
@@ -74,7 +74,7 @@ describe ':ConflictMarkerThemselves'
 end
 
 describe ':ConflictMarkerOurselves'
-    context 'diff2'
+    context 'applying to diff2'
         before
             call s:load(g:lines_diff2)
         end
@@ -95,7 +95,7 @@ describe ':ConflictMarkerOurselves'
         end
     end
 
-    context 'diff3'
+    context 'applying to diff3'
         before
             call s:load(g:lines_diff3)
         end
@@ -112,7 +112,7 @@ describe ':ConflictMarkerOurselves'
 end
 
 describe ':ConflictMarkerNone'
-    context 'diff2'
+    context 'applying to diff2'
         before
             call s:load(g:lines_diff2)
         end
@@ -133,7 +133,7 @@ describe ':ConflictMarkerNone'
         end
     end
 
-    context 'diff3'
+    context 'applying to diff3'
         before
             call s:load(g:lines_diff3)
         end
@@ -150,7 +150,7 @@ describe ':ConflictMarkerNone'
 end
 
 describe ':ConflictMarkerBoth'
-    context 'diff2'
+    context 'applying to diff2'
         before
             call s:load(g:lines_diff2)
         end
@@ -184,7 +184,7 @@ describe ':ConflictMarkerBoth'
         end
     end
 
-    context 'diff3'
+    context 'applying to diff3'
         before
             call s:load(g:lines_diff3)
         end

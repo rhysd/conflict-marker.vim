@@ -61,7 +61,7 @@ describe 'matchit with diff3'
         new
         for l in range(1, len(s:lines_diff3))
             call setline(l, s:lines_diff3[l-1])
-		endfor
+        endfor
         doautocmd BufEnter
     end
 
