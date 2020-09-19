@@ -197,5 +197,12 @@ describe ':ConflictMarkerBoth'
             ConflictMarkerBoth
             Expect getline(1, '$') == ['ourselves', 'themselves', '']
         end
+
+        context 'with bang'
+            it 'resolves a conflict by keeping theirs and ours in reverse order'
+                ConflictMarkerBoth!
+                Expect getline(1, '$') == ['themselves', 'ourselves', '']
+            end
+        end
     end
 end

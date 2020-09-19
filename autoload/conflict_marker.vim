@@ -105,15 +105,17 @@ function! conflict_marker#compromise(reverse) abort
     if ! s:valid_hunk(markers) | return | endif
     execute markers[2][0].'delete'
     let common_ancestors_pos = s:current_conflict_common_ancestors(markers[0], markers[2])
-    if common_ancestors_pos != [0, 0]
+    let has_common_ancestors = common_ancestors_pos != [0, 0]
+    if has_common_ancestors
         execute common_ancestors_pos[0].','.markers[1][0].'delete'
     else
         execute markers[1][0].'delete'
     endif
     execute markers[0][0].'delete'
     if a:reverse
-        let theirs_start = markers[1][0] - 2 + 1
-        let theirs_end = markers[2][0] - 3
+        let ancestors_lines = has_common_ancestors ? markers[1][0] - common_ancestors_pos[0] : 0
+        let theirs_start = markers[1][0] - 2 - ancestors_lines + 1
+        let theirs_end = markers[2][0] - 3 - ancestors_lines
         let theirs = getline(theirs_start, theirs_end)
         execute theirs_start . ',' . theirs_end . 'delete'
         let ours_start = markers[0][0]
