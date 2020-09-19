@@ -180,6 +180,23 @@ ours
 theirs
 ```
 
+### Adopt Both in Reverse Order
+
+```
+<<<<<<< HEAD
+ours
+=======
+theirs
+>>>>>>> deadbeef0123
+```
+
+↓`cB` or `:ConflictMarkerBoth!`
+
+```
+theirs
+ours
+```
+
 ### Adopt None
 
 ```
