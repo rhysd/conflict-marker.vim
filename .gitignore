@@ -1,7 +1,1 @@
-*.lock
-.vim-flavor
-.*.sw?
-.sw?
 tags
-profile.txt
-.coverage.covimerage
