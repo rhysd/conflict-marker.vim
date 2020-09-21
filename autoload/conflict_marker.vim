@@ -72,8 +72,8 @@ endfunction
 function! conflict_marker#themselves() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
-    execute markers[2][0].'delete'
-    execute markers[0][0].','.markers[1][0].'delete'
+    execute markers[2][0].'delete' '_'
+    execute markers[0][0].','.markers[1][0].'delete' '_'
     silent! call repeat#set("\<Plug>(conflict-marker-themselves)", v:count)
 endfunction
 
@@ -83,11 +83,11 @@ function! conflict_marker#ourselves() abort
     if ! s:valid_hunk(markers) | return | endif
     let common_ancestors_pos = s:current_conflict_common_ancestors(markers[0], markers[1])
     if common_ancestors_pos != [0, 0]
-        execute common_ancestors_pos[0].','.markers[2][0].'delete'
+        execute common_ancestors_pos[0].','.markers[2][0].'delete' '_'
     else
-        execute markers[1][0].','.markers[2][0].'delete'
+        execute markers[1][0].','.markers[2][0].'delete' '_'
     endif
-    execute markers[0][0].'delete'
+    execute markers[0][0].'delete' '_'
     silent! call repeat#set("\<Plug>(conflict-marker-ourselves)", v:count)
 endfunction
 
@@ -95,7 +95,7 @@ endfunction
 function! conflict_marker#down_together() abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
-    execute markers[0][0].','.markers[2][0].'delete'
+    execute markers[0][0].','.markers[2][0].'delete' '_'
     silent! call repeat#set("\<Plug>(conflict-marker-none)", v:count)
 endfunction
 
@@ -103,21 +103,21 @@ endfunction
 function! conflict_marker#compromise(reverse) abort
     let markers = conflict_marker#markers()
     if ! s:valid_hunk(markers) | return | endif
-    execute markers[2][0].'delete'
+    execute markers[2][0].'delete' '_'
     let common_ancestors_pos = s:current_conflict_common_ancestors(markers[0], markers[1])
     let has_common_ancestors = common_ancestors_pos != [0, 0]
     if has_common_ancestors
-        execute common_ancestors_pos[0].','.markers[1][0].'delete'
+        execute common_ancestors_pos[0].','.markers[1][0].'delete' '_'
     else
-        execute markers[1][0].'delete'
+        execute markers[1][0].'delete' '_'
     endif
-    execute markers[0][0].'delete'
+    execute markers[0][0].'delete' '_'
     if a:reverse
         let ancestors_lines = has_common_ancestors ? markers[1][0] - common_ancestors_pos[0] : 0
         let theirs_start = markers[1][0] - 2 - ancestors_lines + 1
         let theirs_end = markers[2][0] - 3 - ancestors_lines
         let theirs = getline(theirs_start, theirs_end)
-        execute theirs_start . ',' . theirs_end . 'delete'
+        execute theirs_start . ',' . theirs_end . 'delete' '_'
         let ours_start = markers[0][0]
         call append(ours_start - 1, theirs)
     endif
