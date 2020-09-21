@@ -11,6 +11,24 @@ jobs:
       - uses: rhysd/action-setup-vim@v1
       - run: bundle install --jobs=3 --retry=3
       - run: rake ci
+        env:
+          PROFILE_LOG: profile.txt
+      - uses: actions/setup-python@v1
+      - name: Install covimerage
+        run: |
+          pip install covimerage
+          covimerage --version
+      - name: Run covimerage
+        run: covimerage write_coverage profile.txt
+      - name: Take coverage
+        run: |
+          coverage report
+          coverage xml
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
 
   vint:
     name: Run vint
