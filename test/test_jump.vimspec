@@ -1,5 +1,3 @@
-runtime t/prelude.vim
-
 let s:lines = [
             \ "",
             \ "<<<<<<< HEAD",
@@ -65,150 +63,150 @@ function! s:setup(lines) abort
     endfor
 endfunction
 
-describe ':ConflictMarkerNextHunk'
-    context 'applying to diff2'
-        before
+Describe :ConflictMarkerNextHunk
+    Context applying to diff2
+        Before
             call s:setup(s:lines)
-        end
+        End
 
-        after
+        After
             close!
-        end
+        End
 
-        it 'move cursor to next hunk'
+        It move cursor to next hunk
             normal! gg
             for l in [2, 9, 16]
                 ConflictMarkerNextHunk
-                Expect line('.') == l
+                Assert Equals(line('.'), l)
             endfor
-        end
+        End
 
-        it 'doesn''t move cursor at the end of buffer'
+        It doesn''t move cursor at the end of buffer
             normal! G
             ConflictMarkerNextHunk
-            Expect line('.') == line('$')
-        end
+            Assert Equals(line('.'), line('$'))
+        End
 
-        it 'doesn''t accept at cursor'
+        It doesn''t accept at cursor
             normal! ggj
             ConflictMarkerNextHunk
-            Expect line('.') == 9
-        end
+            Assert Equals(line('.'), 9)
+        End
 
-        it 'with bang accepts at cursor'
+        It with bang accepts at cursor
             normal! ggj
             ConflictMarkerNextHunk!
-            Expect line('.') == 2
-        end
-    end
+            Assert Equals(line('.'), 2)
+        End
+    End
 
-    context 'applying to diff3'
-        before
+    Context applying to diff3
+        Before
             call s:setup(s:lines_diff3)
-        end
+        End
 
-        after
+        After
             close!
-        end
+        End
 
-        it 'move cursor to next hunk'
+        It move cursor to next hunk
             normal! gg
             for l in [2, 11, 20]
                 ConflictMarkerNextHunk
-                Expect line('.') == l
+                Assert Equals(line('.'), l)
             endfor
-        end
+        End
 
-        it 'doesn''t move cursor at the end of buffer'
+        It doesn''t move cursor at the end of buffer
             normal! G
             ConflictMarkerNextHunk
-            Expect line('.') == line('$')
-        end
+            Assert Equals(line('.'), line('$'))
+        End
 
-        it 'doesn''t accept at cursor'
+        It doesn''t accept at cursor
             normal! ggj
             ConflictMarkerNextHunk
-            Expect line('.') == 11
-        end
+            Assert Equals(line('.'), 11)
+        End
 
-        it 'with bang accepts at cursor'
+        It with bang accepts at cursor
             normal! ggj
             ConflictMarkerNextHunk!
-            Expect line('.') == 2
-        end
-    end
-end
+            Assert Equals(line('.'), 2)
+        End
+    End
+End
 
-describe ':ConflictMarkerPrevHunk'
-    context 'applying to diff2'
-        before
+Describe :ConflictMarkerPrevHunk
+    Context applying to diff2
+        Before
             call s:setup(s:lines)
-        end
+        End
 
-        after
+        After
             close!
-        end
+        End
 
-        it 'move cursor to previous hunk'
+        It move cursor to previous hunk
             normal! G
             for l in [16, 9, 2]
                 ConflictMarkerPrevHunk
-                Expect line('.') == l
+                Assert Equals(line('.'), l)
             endfor
-        end
+        End
 
-        it 'doesn''t move cursor at the top of buffer'
+        It doesn''t move cursor at the top of buffer
             normal! gg
             ConflictMarkerPrevHunk
-            Expect line('.') == 1
-        end
+            Assert Equals(line('.'), 1)
+        End
 
-        it 'doesn''t accept at cursor'
+        It doesn''t accept at cursor
             normal! Gk
             ConflictMarkerPrevHunk
-            Expect line('.') == 9
-        end
+            Assert Equals(line('.'), 9)
+        End
 
-        it 'with bang accepts at cursor'
+        It with bang accepts at cursor
             normal! Gk
             ConflictMarkerPrevHunk!
-            Expect line('.') == 16
-        end
-    end
+            Assert Equals(line('.'), 16)
+        End
+    End
 
-    context 'applying to diff3'
-        before
+    Context applying to diff3
+        Before
             call s:setup(s:lines_diff3)
-        end
+        End
 
-        after
+        After
             close!
-        end
+        End
 
-        it 'move cursor to previous hunk'
+        It move cursor to previous hunk
             normal! G
             for l in [20, 11, 2]
                 ConflictMarkerPrevHunk
-                Expect line('.') == l
+                Assert Equals(line('.'), l)
             endfor
-        end
+        End
 
-        it 'doesn''t move cursor at the top of buffer'
+        It doesn''t move cursor at the top of buffer
             normal! gg
             ConflictMarkerPrevHunk
-            Expect line('.') == 1
-        end
+            Assert Equals(line('.'), 1)
+        End
 
-        it 'doesn''t accept at cursor'
+        It doesn''t accept at cursor
             normal! Gk
             ConflictMarkerPrevHunk
-            Expect line('.') == 11
-        end
+            Assert Equals(line('.'), 11)
+        End
 
-        it 'with bang accepts at cursor'
+        It with bang accepts at cursor
             normal! Gk
             ConflictMarkerPrevHunk!
-            Expect line('.') == 20
-        end
-    end
-end
+            Assert Equals(line('.'), 20)
+        End
+    End
+End

@@ -1,0 +1,76 @@
+Describe Default settings
+    It provide variables to customize
+        Assert Exists('g:loaded_conflict_marker')
+        Assert Equals(g:conflict_marker_highlight_group, 'Error')
+        Assert Equals(g:conflict_marker_begin, '^<<<<<<<')
+        Assert Equals(g:conflict_marker_common_ancestors, '^|||||||')
+        Assert Equals(g:conflict_marker_separator, '^=======$')
+        Assert Equals(g:conflict_marker_end, '^>>>>>>>')
+        Assert Equals(g:conflict_marker_enable_mappings, 1)
+        Assert Equals(g:conflict_marker_enable_hooks, 1)
+        Assert Equals(g:conflict_marker_enable_highlight, 1)
+        Assert Equals(g:conflict_marker_enable_matchit, 1)
+    End
+
+    It provides commands
+        Assert Exists(':ConflictMarkerThemselves')
+        Assert Exists(':ConflictMarkerOurselves')
+        Assert Exists(':ConflictMarkerBoth')
+        Assert Exists(':ConflictMarkerNone')
+        Assert Exists(':ConflictMarkerNextHunk')
+        Assert Exists(':ConflictMarkerPrevHunk')
+    End
+
+    It provides <Plug> mappings
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-themselves)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-ourselves)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-both)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-both-rev)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-none)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-next-hunk)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-prev-hunk)', 'n'))
+    End
+
+    Context with text buffer
+        Before
+            new
+        End
+
+        After
+            close!
+        End
+
+        It provides user mappings unless g:conflict_marker_enable_mappings is 0
+            let lines = [
+                    \ "<<<<<<< HEAD",
+                    \ "ourselves1",
+                    \ "=======",
+                    \ "themselves1",
+                    \ ">>>>>>> 8374eabc232",
+                    \ ]
+
+            for l in range(1, len(lines))
+                call setline(l, lines[l-1])
+            endfor
+            doautocmd BufEnter
+
+            Assert NotEmpty(mapcheck(']x', 'n'))
+            Assert NotEmpty(mapcheck('[x', 'n'))
+            Assert NotEmpty(mapcheck('ct', 'n'))
+            Assert NotEmpty(mapcheck('co', 'n'))
+            Assert NotEmpty(mapcheck('cn', 'n'))
+            Assert NotEmpty(mapcheck('cb', 'n'))
+            Assert NotEmpty(mapcheck('cB', 'n'))
+        End
+
+        It does not provide user mappings until hunk is not found
+            Assert Falsy(mapcheck(']x', 'n'))
+            Assert Falsy(mapcheck('[x', 'n'))
+            Assert Falsy(mapcheck('ct', 'n'))
+            Assert Falsy(mapcheck('co', 'n'))
+            Assert Falsy(mapcheck('cn', 'n'))
+            Assert Falsy(mapcheck('cb', 'n'))
+            Assert Falsy(mapcheck('cB', 'n'))
+        End
+    End
+End

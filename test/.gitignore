@@ -1,3 +1,2 @@
-/.bundle
-/.vim-flavor
-/*.lock
+/profile.txt
+/.coverage_covimerage
