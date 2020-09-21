@@ -1,7 +1,4 @@
-let s:root_dir = matchstr(system('git rev-parse --show-cdup'), '[^\n]\+')
-execute 'set' 'rtp +=./'.s:root_dir
-call vspec#matchers#load()
-runtime plugin/conflict_marker.vim
+runtime t/prelude.vim
 
 let s:lines = [
             \ "",
