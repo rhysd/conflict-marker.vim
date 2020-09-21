@@ -1,8 +1,10 @@
-Highlight, Jump and Resolve Conflict Markers Quickly in Vim
-===========================================================
+conflict-marker.vim
+===================
 [![CI](https://github.com/rhysd/conflict-marker.vim/workflows/CI/badge.svg?event=push)](https://github.com/rhysd/conflict-marker.vim/actions?query=workflow%3ACI)
 
-conflict-marker.vim is Vim plugin for developers fighting against conflicts.
+Highlight, jump and resolve conflict markers quickly.
+
+[conflict-marker.vim](https://github.com/rhysd/conflict-marker.vim) is Vim plugin for developers fighting against conflicts.
 All features are available if and only if an opened buffer contains a conflict marker.
 
 conflict-marker.vim does:
@@ -10,6 +12,7 @@ conflict-marker.vim does:
 - jump among conflict markers.
 - jump within conflict block; beginning, separator and end of the block.
 - resolve conflict with various strategies; theirs, ours, none and both strategies.
+- support both `diff2` (Git default) and [`diff3`](https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging) conflict styles.
 
 This plugin tries to define some mappings if a conflict marker is detected.
 If you don't want to use default mappings, set `g:conflict_marker_enable_mappings` to `0`.
@@ -163,7 +166,7 @@ theirs
 ours
 ```
 
-### Adopt Both
+### Apply Both
 
 ```
 <<<<<<< HEAD
@@ -180,7 +183,7 @@ ours
 theirs
 ```
 
-### Adopt Both in Reverse Order
+### Apply Both in Reverse Order
 
 ```
 <<<<<<< HEAD
@@ -197,7 +200,7 @@ theirs
 ours
 ```
 
-### Adopt None
+### Apply None
 
 ```
 <<<<<<< HEAD
@@ -213,6 +216,8 @@ theirs
 ```
 
 ## Customize
+
+TODO
 
 ## License
 
