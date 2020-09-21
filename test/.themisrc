@@ -1,0 +1,18 @@
+let g:repo_root = fnamemodify(expand('<sfile>'), ':h:h')
+
+call themis#option('exclude', g:repo_root . '/test/profile.txt')
+call themis#option('exclude', g:repo_root . '/test/README.md')
+call themis#option('exclude', g:repo_root . '/test/.coveragerc')
+call themis#option('exclude', g:repo_root . '/test/.gitignore')
+call themis#helper('command').with(themis#helper('assert'))
+
+if $PROFILE_LOG !=# ''
+    execute 'profile' 'start' $PROFILE_LOG
+    execute 'profile!' 'file' g:repo_root . '/autoload/conflict_marker.vim'
+    execute 'profile!' 'file' g:repo_root . '/autoload/conflict_marker/detect.vim'
+    execute 'profile!' 'file' g:repo_root . '/plugin/conflict_marker.vim'
+endif
+
+call themis#option('runtimepath', expand(g:repo_root))
+
+syntax on

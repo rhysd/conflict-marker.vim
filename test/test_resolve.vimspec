@@ -1,0 +1,203 @@
+let g:lines_diff2 = [
+            \ "<<<<<<< HEAD",
+            \ "ourselves",
+            \ "=======",
+            \ "themselves",
+            \ ">>>>>>> 8374eabc232",
+            \ "",
+            \ ]
+
+lockvar g:lines_diff2
+
+let g:lines_diff3 = [
+            \ "<<<<<<< HEAD",
+            \ "ourselves",
+            \ "||||||| base",
+            \ "ancestors",
+            \ "=======",
+            \ "themselves",
+            \ ">>>>>>> 8374eabc232",
+            \ "",
+            \ ]
+
+lockvar g:lines_diff3
+
+function! s:load(lines)
+    new
+    for l in range(1, len(a:lines))
+        call setline(l, a:lines[l-1])
+    endfor
+    doautocmd BufEnter
+endfunction
+
+Describe :ConflictMarkerThemselves
+    Context applying to diff2
+        Before
+            call s:load(g:lines_diff2)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict with themselves strategy
+            ConflictMarkerThemselves
+            Assert Equals(getline(1, '$'), ['themselves', ''])
+        End
+
+        It makes no change out of marker
+            normal! G
+            ConflictMarkerThemselves
+            Assert Equals(getline(1, '$'), g:lines_diff2)
+        End
+    End
+
+    Context applying to diff3
+        Before
+            call s:load(g:lines_diff3)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict with themselves strategy
+            ConflictMarkerThemselves
+            Assert Equals(getline(1, '$'), ['themselves', ''])
+        End
+    End
+End
+
+Describe :ConflictMarkerOurselves
+    Context applying to diff2
+        Before
+            call s:load(g:lines_diff2)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict with ourselves strategy
+            ConflictMarkerOurselves
+            Assert Equals(getline(1, '$'), ['ourselves', ''])
+        End
+
+        It makes no change out of marker
+            normal! G
+            ConflictMarkerOurselves
+            Assert Equals(getline(1, '$'), g:lines_diff2)
+        End
+    End
+
+    Context applying to diff3
+        Before
+            call s:load(g:lines_diff3)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict with ourselves strategy
+            ConflictMarkerOurselves
+            Assert Equals(getline(1, '$'), ['ourselves', ''])
+        End
+    End
+End
+
+Describe :ConflictMarkerNone
+    Context applying to diff2
+        Before
+            call s:load(g:lines_diff2)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict by removing both modifications
+            ConflictMarkerNone
+            Assert Equals(getline(1, '$'), [''])
+        End
+
+        It makes no change out of marker
+            normal! G
+            ConflictMarkerNone
+            Assert Equals(getline(1, '$'), g:lines_diff2)
+        End
+    End
+
+    Context applying to diff3
+        Before
+            call s:load(g:lines_diff3)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict by removing both modifications
+            ConflictMarkerNone
+            Assert Equals(getline(1, '$'), [''])
+        End
+    End
+End
+
+Describe :ConflictMarkerBoth
+    Context applying to diff2
+        Before
+            call s:load(g:lines_diff2)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict by keeping theirs and ours
+            ConflictMarkerBoth
+            Assert Equals(getline(1, '$'), ['ourselves', 'themselves', ''])
+        End
+
+        It makes no change out of marker
+            normal! G
+            ConflictMarkerBoth
+            Assert Equals(getline(1, '$'), g:lines_diff2)
+        End
+
+        Context with bang
+            It resolves a conflict by keeping theirs and ours in reverse order
+                ConflictMarkerBoth!
+                Assert Equals(getline(1, '$'), ['themselves', 'ourselves', ''])
+            End
+
+            It makes no change out of marker
+                normal! G
+                ConflictMarkerBoth!
+                Assert Equals(getline(1, '$'), g:lines_diff2)
+            End
+        End
+    End
+
+    Context applying to diff3
+        Before
+            call s:load(g:lines_diff3)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict by keeping theirs and ours
+            ConflictMarkerBoth
+            Assert Equals(getline(1, '$'), ['ourselves', 'themselves', ''])
+        End
+
+        Context with bang
+            It resolves a conflict by keeping theirs and ours in reverse order
+                ConflictMarkerBoth!
+                Assert Equals(getline(1, '$'), ['themselves', 'ourselves', ''])
+            End
+        End
+    End
+End

@@ -1,27 +1,26 @@
 # Prerequisites
 
-[Ruby](https://www.ruby-lang.org/) is required to run unit tests.
-
 [Python](https://www.python.org/) is requried to take code coverage.
 
 # How to run unit tests
 
-This repository uses [vim-vspec](https://github.com/kana/vim-vspec) and [vim-flavor](https://github.com/kana/vim-flavor) to run unit tests. Run `bundle` command to install them locally.
+This repository uses [vim-themis](https://github.com/thinca/vim-themis) to run unit tests.
 
-Install all dependencies to run unit tests in `.bundle` directory.
+Clone vim-themis in your local
 
 ```sh
-bundle install --path=.bundle
-bundle exec vim-flavor help
+git clone https://github.com/thinca/vim-themis.git
 ```
 
 Run `vim-flavor` command via `bundle exec`:
+Execute `themis` command to run all unit tests
 
 ```sh
-bundle exec vim-flavor test
+cd /path/to/conflict-marker.vim/test
+/path/to/vim-themis/bin/themis *.vimspec
 ```
 
-It runs all unit tests and output the results in terminal.
+It runs all unit tests and outputs the results in terminal.
 
 # How to take code coverage
 
@@ -36,20 +35,20 @@ pip install covimerage
 covimerage --version
 ```
 
-Run unit tests enabling profiling.
+Run unit tests enabling profiling by setting `PROFILE_LOG` environment variable.
 
 ```sh
-# Profile data will be stored in profile.txt
-PROFILE_LOG=profile.txt bundle exec vim-flavor test
+cd /path/to/conflict-marker.vim/test
+PROFILE_LOG=profile.txt /path/to/vim-themis/bin/themis *.vimspec
 ```
 
-Extract code coverage data from profiling results.
+It saves profiling results to `profile.txt`. Extract code coverage data from it using `covimerage`.
 
 ```sh
 covimerage write_coverage profile.txt
 ```
 
-Output code coverage results with `coverage` command installed with Python.
+Output code coverage results with `coverage` command which is part of standard Python toolchain.
 
 ```sh
 # Show code coverage results in terminal
