@@ -1,6 +1,7 @@
 conflict-marker.vim
 ===================
 [![CI](https://github.com/rhysd/conflict-marker.vim/workflows/CI/badge.svg?event=push)](https://github.com/rhysd/conflict-marker.vim/actions?query=workflow%3ACI)
+[![Coverage](https://codecov.io/gh/rhysd/conflict-marker.vim/branch/master/graph/badge.svg)](https://codecov.io/gh/rhysd/conflict-marker.vim)
 
 Highlight, jump and resolve conflict markers quickly.
 
