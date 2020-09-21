@@ -11,7 +11,7 @@ endfunction
 
 call s:var('highlight_group', 'Error')
 call s:var('begin', '^<<<<<<<')
-call s:var('common_ancestors', '^||||||| .*$')
+call s:var('common_ancestors', '^|||||||')
 call s:var('separator', '^=======$')
 call s:var('end', '^>>>>>>>')
 call s:var('enable_mappings', 1)
