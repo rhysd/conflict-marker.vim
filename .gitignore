@@ -3,3 +3,5 @@
 .*.sw?
 .sw?
 tags
+profile.txt
+.coverage.covimerage
