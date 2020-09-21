@@ -6,11 +6,11 @@ call vspec#matchers#load()
 runtime plugin/conflict_marker.vim
 
 describe 'Default settings'
-
     it 'provide variables to customize'
         Expect 'g:loaded_conflict_marker' to_exist
         Expect 'g:conflict_marker_highlight_group' to_exist_and_default_to 'Error'
         Expect 'g:conflict_marker_begin' to_exist_and_default_to '^<<<<<<<'
+        Expect 'g:conflict_marker_common_ancestors' to_exist_and_default_to '^|||||||'
         Expect 'g:conflict_marker_separator' to_exist_and_default_to '^=======$'
         Expect 'g:conflict_marker_end' to_exist_and_default_to '^>>>>>>>'
         Expect 'g:conflict_marker_enable_mappings' to_exist_and_default_to 1
@@ -32,33 +32,52 @@ describe 'Default settings'
         Expect '<Plug>(conflict-marker-themselves)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-ourselves)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-both)' to_map_in 'n'
+        Expect '<Plug>(conflict-marker-both-rev)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-none)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-next-hunk)' to_map_in 'n'
         Expect '<Plug>(conflict-marker-prev-hunk)' to_map_in 'n'
     end
 
-    it 'provides user mappings unless g:conflict_marker_enable_mappings is 0'
-        new
-        let lines = [
-                \ "<<<<<<< HEAD",
-                \ "ourselves1",
-                \ "=======",
-                \ "themselves1",
-                \ ">>>>>>> 8374eabc232",
-                \ ]
+    context 'with text buffer'
+        before
+            new
+        end
 
-        for l in range(1, len(lines))
-            call setline(l, lines[l-1])
-        endfor
-        doautocmd BufEnter
+        after
+            close!
+        end
 
-        Expect ']x' to_map_in 'n'
-        Expect '[x' to_map_in 'n'
-        Expect 'ct' to_map_in 'n'
-        Expect 'co' to_map_in 'n'
-        Expect 'cn' to_map_in 'n'
-        Expect 'cb' to_map_in 'n'
+        it 'provides user mappings unless g:conflict_marker_enable_mappings is 0'
+            let lines = [
+                    \ "<<<<<<< HEAD",
+                    \ "ourselves1",
+                    \ "=======",
+                    \ "themselves1",
+                    \ ">>>>>>> 8374eabc232",
+                    \ ]
 
-        close!
+            for l in range(1, len(lines))
+                call setline(l, lines[l-1])
+            endfor
+            doautocmd BufEnter
+
+            Expect ']x' to_map_in 'n'
+            Expect '[x' to_map_in 'n'
+            Expect 'ct' to_map_in 'n'
+            Expect 'co' to_map_in 'n'
+            Expect 'cn' to_map_in 'n'
+            Expect 'cb' to_map_in 'n'
+            Expect 'cB' to_map_in 'n'
+        end
+
+        it 'does not provide user mappings until hunk is not found'
+            Expect ']x' not to_map_in 'n'
+            Expect '[x' not to_map_in 'n'
+            Expect 'ct' not to_map_in 'n'
+            Expect 'co' not to_map_in 'n'
+            Expect 'cn' not to_map_in 'n'
+            Expect 'cb' not to_map_in 'n'
+            Expect 'cB' not to_map_in 'n'
+        end
     end
 end
