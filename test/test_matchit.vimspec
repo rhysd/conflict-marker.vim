@@ -1,21 +1,21 @@
 let s:lines = [
-            \ "<<<<<<< HEAD",
-            \ "ourselves1",
-            \ "=======",
-            \ "themselves1",
-            \ ">>>>>>> 8374eabc232",
+            \ '<<<<<<< HEAD',
+            \ 'ourselves1',
+            \ '=======',
+            \ 'themselves1',
+            \ '>>>>>>> 8374eabc232',
             \ ]
 
 lockvar s:lines
 
 let s:lines_diff3 = [
-            \ "<<<<<<< HEAD",
-            \ "ourselves1",
-            \ "||||||| merged common ancestors",
-            \ "common ancestors1",
-            \ "=======",
-            \ "themselves1",
-            \ ">>>>>>> 8374eabc232",
+            \ '<<<<<<< HEAD',
+            \ 'ourselves1',
+            \ '||||||| merged common ancestors',
+            \ 'common ancestors1',
+            \ '=======',
+            \ 'themselves1',
+            \ '>>>>>>> 8374eabc232',
             \ ]
 
 lockvar s:lines_diff3

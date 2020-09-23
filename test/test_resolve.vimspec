@@ -1,23 +1,23 @@
 let g:lines_diff2 = [
-            \ "<<<<<<< HEAD",
-            \ "ourselves",
-            \ "=======",
-            \ "themselves",
-            \ ">>>>>>> 8374eabc232",
-            \ "",
+            \ '<<<<<<< HEAD',
+            \ 'ourselves',
+            \ '=======',
+            \ 'themselves',
+            \ '>>>>>>> 8374eabc232',
+            \ '',
             \ ]
 
 lockvar g:lines_diff2
 
 let g:lines_diff3 = [
-            \ "<<<<<<< HEAD",
-            \ "ourselves",
-            \ "||||||| base",
-            \ "ancestors",
-            \ "=======",
-            \ "themselves",
-            \ ">>>>>>> 8374eabc232",
-            \ "",
+            \ '<<<<<<< HEAD',
+            \ 'ourselves',
+            \ '||||||| base',
+            \ 'ancestors',
+            \ '=======',
+            \ 'themselves',
+            \ '>>>>>>> 8374eabc232',
+            \ '',
             \ ]
 
 lockvar g:lines_diff3

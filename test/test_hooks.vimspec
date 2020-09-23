@@ -1,9 +1,9 @@
 let s:lines = [
-            \ "<<<<<<< HEAD",
-            \ "ourselves1",
-            \ "=======",
-            \ "themselves1",
-            \ ">>>>>>> 8374eabc232",
+            \ '<<<<<<< HEAD',
+            \ 'ourselves1',
+            \ '=======',
+            \ 'themselves1',
+            \ '>>>>>>> 8374eabc232',
             \ ]
 
 lockvar s:lines
