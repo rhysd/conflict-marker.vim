@@ -18,6 +18,7 @@ call s:var('enable_mappings', 1)
 call s:var('enable_hooks', 1)
 call s:var('enable_highlight', 1)
 call s:var('enable_matchit', 1)
+call s:var('enable_detect', 1)
 
 command! -nargs=0 ConflictMarkerThemselves     call conflict_marker#themselves()
 command! -nargs=0 ConflictMarkerOurselves      call conflict_marker#ourselves()
