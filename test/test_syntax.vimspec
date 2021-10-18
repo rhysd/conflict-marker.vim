@@ -57,4 +57,26 @@ Describe Conflict marker
             Assert NotEquals(GetHighlight(l+4, 5), 'ConflictMarkerEnd')
         endfor
     End
+
+    Describe g:conflict_marker_enable_detect
+        Before
+            let saved = g:conflict_marker_enable_detect
+        End
+
+        After
+            let g:conflict_marker_enable_detect = saved
+        End
+
+        It can disable detection (#18)
+            let g:conflict_marker_enable_detect = 0
+            doautocmd BufEnter
+            for l in [1, 8, 15]
+                Assert NotEquals(GetHighlight(l, 1), 'ConflictMarkerBegin')
+                Assert NotEquals(GetHighlight(l+1, 2), 'ConflictMarkerOurs')
+                Assert NotEquals(GetHighlight(l+2, 3), 'ConflictMarkerSeparator')
+                Assert NotEquals(GetHighlight(l+3, 4), 'ConflictMarkerTheirs')
+                Assert NotEquals(GetHighlight(l+4, 5), 'ConflictMarkerEnd')
+            endfor
+        End
+    End
 End
