@@ -119,7 +119,7 @@ endfunction
 
 augroup ConflictMarkerDetect
     autocmd!
-    autocmd BufReadPost,BufEnter,FocusGained,ColorScheme * if conflict_marker#detect#markers()
+    autocmd BufReadPost,FileChangedShellPost,ShellFilterPost,StdinReadPost,BufEnter,FocusGained,ColorScheme * if conflict_marker#detect#markers()
                 \ | call s:on_detected()
                 \ | endif
 augroup END
