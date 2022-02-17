@@ -44,7 +44,7 @@ Conflict markers can be customized using the following options:
 ```vim
 " Default values
 let g:conflict_marker_begin = '^<<<<<<< \@='
-let g:conflict_marker_common_ancestors = '^||||||| .*$'
+let g:conflict_marker_common_ancestors = '^|||||||'
 let g:conflict_marker_separator = '^=======$'
 let g:conflict_marker_end   = '^>>>>>>> \@='
 ```
