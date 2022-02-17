@@ -3,7 +3,7 @@ Describe Default settings
         Assert Exists('g:loaded_conflict_marker')
         Assert Equals(g:conflict_marker_highlight_group, 'Error')
         Assert Equals(g:conflict_marker_begin, '^<<<<<<<')
-        Assert Equals(g:conflict_marker_common_ancestors, '^|||||||')
+        Assert Equals(g:conflict_marker_common_ancestors, '^|||||||\+')
         Assert Equals(g:conflict_marker_separator, '^=======$')
         Assert Equals(g:conflict_marker_end, '^>>>>>>>')
         Assert Equals(g:conflict_marker_enable_mappings, 1)

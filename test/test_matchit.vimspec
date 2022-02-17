@@ -35,7 +35,7 @@ Describe matchit
 
     It defines b:match_words
         Assert Exists('b:match_words')
-        Assert Match(b:match_words, ',^<<<<<<<:^|||||||:^=======$:^>>>>>>>')
+        Assert Match(b:match_words, ',^<<<<<<<:^|||||||\\+:^=======$:^>>>>>>>')
     End
 
     It can jump within a conflict marker
