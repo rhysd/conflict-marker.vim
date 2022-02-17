@@ -94,8 +94,9 @@ group, and define your own highlights for each syntax group.
 " disable the default highlight group
 let g:conflict_marker_highlight_group = ''
 
-" Include text after begin and end markers
+" Include text after begin, common ancestors and end markers
 let g:conflict_marker_begin = '^<<<<<<< .*$'
+let g:conflict_marker_common_ancestors = '^|||||||\+ .*$'
 let g:conflict_marker_end   = '^>>>>>>> .*$'
 
 highlight ConflictMarkerBegin guibg=#2f7366
