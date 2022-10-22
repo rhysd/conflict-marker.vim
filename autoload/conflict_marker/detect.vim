@@ -5,7 +5,7 @@ function! conflict_marker#detect#markers() abort
     if !g:conflict_marker_enable_detect
         return
     endif
-    let pos_save = getpos('.')
+    let view = winsaveview()
     try
         keepjumps call cursor(1, 1)
         for marker in [g:conflict_marker_begin, g:conflict_marker_separator, g:conflict_marker_end]
@@ -16,7 +16,7 @@ function! conflict_marker#detect#markers() abort
 
         return 1
     finally
-        call setpos('.', pos_save)
+        call winrestview(view)
     endtry
 endfunction
 
