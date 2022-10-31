@@ -79,10 +79,10 @@ endfunction
 
 function! s:create_highlight_links()
     if exists('g:conflict_marker_highlight_group') && strlen(g:conflict_marker_highlight_group)
-        execute 'highlight link ConflictMarkerBegin '.g:conflict_marker_highlight_group
-        execute 'highlight link ConflictMarkerCommonAncestors '.g:conflict_marker_highlight_group
-        execute 'highlight link ConflictMarkerSeparator '.g:conflict_marker_highlight_group
-        execute 'highlight link ConflictMarkerEnd '.g:conflict_marker_highlight_group
+        execute 'highlight default link ConflictMarkerBegin '.g:conflict_marker_highlight_group
+        execute 'highlight default link ConflictMarkerCommonAncestors '.g:conflict_marker_highlight_group
+        execute 'highlight default link ConflictMarkerSeparator '.g:conflict_marker_highlight_group
+        execute 'highlight default link ConflictMarkerEnd '.g:conflict_marker_highlight_group
     endif
 endfunction
 
@@ -120,7 +120,7 @@ endfunction
 
 augroup ConflictMarkerDetect
     autocmd!
-    autocmd BufReadPost,FileChangedShellPost,ShellFilterPost,StdinReadPost,BufEnter,FocusGained,ColorScheme * if conflict_marker#detect#markers()
+    autocmd BufReadPost,FileChangedShellPost,ShellFilterPost,StdinReadPost * if conflict_marker#detect#markers()
                 \ | call s:on_detected()
                 \ | endif
 augroup END
