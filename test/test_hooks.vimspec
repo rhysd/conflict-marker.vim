@@ -24,7 +24,7 @@ Describe g:conflict_marker_hooks
     It does nothing if does not have on_detected hook
         let g:conflict_marker_hooks = {}
         " Check exception is not thrown
-        doautocmd BufEnter
+        doautocmd BufReadPost
     End
 
     It execute on_detected hook specified by string
@@ -34,7 +34,7 @@ Describe g:conflict_marker_hooks
         endfunction
         let g:conflict_marker_hooks = {'on_detected' : 'TestHook'}
 
-        doautocmd BufEnter
+        doautocmd BufReadPost
         Assert g:test_hooked
         unlet g:test_hooked
     End
@@ -46,7 +46,7 @@ Describe g:conflict_marker_hooks
             let g:test_hooked = 1
         endfunction
 
-        doautocmd BufEnter
+        doautocmd BufReadPost
         Assert g:test_hooked
         unlet g:test_hooked
     End

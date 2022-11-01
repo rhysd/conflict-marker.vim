@@ -27,7 +27,7 @@ function! s:load(lines)
     for l in range(1, len(a:lines))
         call setline(l, a:lines[l-1])
     endfor
-    doautocmd BufEnter
+    doautocmd BufReadPost
 endfunction
 
 Describe :ConflictMarkerThemselves

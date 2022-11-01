@@ -38,7 +38,7 @@ Describe Conflict marker
     End
 
     It is highlighted
-        doautocmd BufEnter
+        doautocmd BufReadPost
         for l in [1, 8, 15]
             Assert Equals(GetHighlight(l, 1), 'ConflictMarkerBegin')
             Assert Equals(GetHighlight(l+1, 2), 'ConflictMarkerOurs')
@@ -48,7 +48,7 @@ Describe Conflict marker
         endfor
     End
 
-    It is not highlighted if no marker is detected at BufEnter
+    It is not highlighted if no marker is detected at BufReadPost
         for l in [1, 8, 15]
             Assert NotEquals(GetHighlight(l, 1), 'ConflictMarkerBegin')
             Assert NotEquals(GetHighlight(l+1, 2), 'ConflictMarkerOurs')
@@ -69,7 +69,7 @@ Describe Conflict marker
 
         It can disable detection (#18)
             let g:conflict_marker_enable_detect = 0
-            doautocmd BufEnter
+            doautocmd BufReadPost
             for l in [1, 8, 15]
                 Assert NotEquals(GetHighlight(l, 1), 'ConflictMarkerBegin')
                 Assert NotEquals(GetHighlight(l+1, 2), 'ConflictMarkerOurs')

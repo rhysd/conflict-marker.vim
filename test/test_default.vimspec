@@ -52,7 +52,7 @@ Describe Default settings
             for l in range(1, len(lines))
                 call setline(l, lines[l-1])
             endfor
-            doautocmd BufEnter
+            doautocmd BufReadPost
 
             Assert NotEmpty(mapcheck(']x', 'n'))
             Assert NotEmpty(mapcheck('[x', 'n'))
