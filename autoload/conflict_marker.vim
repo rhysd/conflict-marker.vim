@@ -124,6 +124,18 @@ function! conflict_marker#compromise(reverse) abort
     silent! call repeat#set("\<Plug>(conflict-marker-both)", v:count)
 endfunction
 
+" Note: temporary implementation, linewise
+function! conflict_marker#common_ancestors() abort
+    let markers = conflict_marker#markers()
+    if ! s:valid_hunk(markers) | return | endif
+    let common_ancestors_pos = s:current_conflict_common_ancestors(markers[0], markers[1])
+    if common_ancestors_pos == [0, 0] | return | endif
+    " :silent to prevent hit-enter prompt
+    execute 'silent' markers[1][0] . ',' . markers[2][0] . 'delete' '_'
+    execute 'silent' markers[0][0] . ',' . common_ancestors_pos[0] . 'delete' '_'
+    silent! call repeat#set("\<Plug>(conflict-marker-common-ancestors)", v:count)
+endfunction
+
 function! s:jump_to_hunk_if_valid(original_pos, hunk) abort
     if s:valid_hunk(a:hunk)
         call cursor(a:hunk[0][0], a:hunk[0][1])

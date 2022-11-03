@@ -22,8 +22,8 @@ conflict-marker.vim does
 1. highlight conflict markers.
 2. jump among conflict markers.
 3. jump within conflict block; begin, separator and end of the block.
-4. resolve conflict with various strategies; "theirs", "ours", "none"
-   and "both".
+4. resolve conflict with various strategies; "theirs", "ours", "none",
+   "both", and "common ancestor's"
 
 ==============================================================================
 USAGE                                                *conflict-marker.vim-usage*
