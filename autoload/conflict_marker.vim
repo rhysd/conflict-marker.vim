@@ -138,17 +138,17 @@ endfunction
 function! conflict_marker#next_conflict(accept_cursor) abort
     let pos = getpos('.')
     return s:jump_to_hunk_if_valid(pos, [
-                \ searchpos(g:conflict_marker_begin, (a:accept_cursor ? 'cW' : 'W')),
-                \ searchpos(g:conflict_marker_separator, 'cW'),
-                \ searchpos(g:conflict_marker_end, 'cW'),
+                \ searchpos(g:conflict_marker_begin, (a:accept_cursor ? 'cw' : 'w')),
+                \ searchpos(g:conflict_marker_separator, 'cw'),
+                \ searchpos(g:conflict_marker_end, 'cw'),
                 \ ])
 endfunction
 
 function! conflict_marker#previous_conflict(accept_cursor) abort
     let pos = getpos('.')
     return s:jump_to_hunk_if_valid(pos, reverse([
-                \ searchpos(g:conflict_marker_end, (a:accept_cursor ? 'bcW' : 'bW')),
-                \ searchpos(g:conflict_marker_separator, 'bcW'),
-                \ searchpos(g:conflict_marker_begin, 'bcW'),
+                \ searchpos(g:conflict_marker_end, (a:accept_cursor ? 'bcw' : 'bw')),
+                \ searchpos(g:conflict_marker_separator, 'bcw'),
+                \ searchpos(g:conflict_marker_begin, 'bcw'),
                 \ ]))
 endfunction
