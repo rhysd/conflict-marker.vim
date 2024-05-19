@@ -34,8 +34,101 @@ https://github.com/rhysd/conflict-marker.vim/blob/master/README.md
 ==============================================================================
 MAPPINGS                                          *conflict-marker.vim-mappings*
 
-Please see README.md in below repository page.  TODO
-https://github.com/rhysd/conflict-marker.vim/blob/master/README.md
+[x
+]x
+	Jump among Conflict Markers.
+	Use the following option to disable them: >
+		let g:conflict_marker_enable_mappings = 0
+	<
+
+*<Plug>(conflict-marker-next-hunk)*
+*<Plug>(conflict-marker-prev-hunk)*
+	Jump among Conflict Markers.
+
+ct
+co
+cn
+	Resolve a Conflict with Various Strategies.
+	`ct` for theirs, `co` for ours, `cn` for none and `cb` for both.
+	See |conflict-marker.vim-example| for more details.
+	Use the following option to disable them: >
+		let g:conflict_marker_enable_mappings = 0
+	<
+
+*<Plug>(conflict-marker-themselves)*
+*<Plug>(conflict-marker-ourselves)*
+*<Plug>(conflict-marker-both)*
+*<Plug>(conflict-marker-both-rev)*
+*<Plug>(conflict-marker-none)*
+	Resolve a Conflict with Various Strategies.
+	See |conflict-marker.vim-example| for more details.
+
+==============================================================================
+EXAMPLE                                            *conflict-marker.vim-example*
+
+How this plugin resolves conflicts is shown below.
+
+Theirs: >
+	<<<<<<< HEAD
+	ours
+	=======
+	theirs
+	>>>>>>> deadbeef0123
+<
+
+↓`ct` or `:ConflictMarkerThemselves` >
+	theirs
+<
+
+Ours: >
+	<<<<<<< HEAD
+	ours
+	=======
+	theirs
+	>>>>>>> deadbeef0123
+<
+
+↓`co` or `:ConflictMarkerOurselves` >
+	ours
+<
+
+Apply Both: >
+	<<<<<<< HEAD
+	ours
+	=======
+	theirs
+	>>>>>>> deadbeef0123
+<
+
+↓`cb` or `:ConflictMarkerBoth` >
+	ours
+	theirs
+<
+
+Apply Both in Reverse Order: >
+	<<<<<<< HEAD
+	ours
+	=======
+	theirs
+	>>>>>>> deadbeef0123
+<
+
+↓`cB` or `:ConflictMarkerBoth!` >
+	theirs
+	ours
+<
+
+Apply None: >
+	<<<<<<< HEAD
+	ours
+	=======
+	theirs
+	>>>>>>> deadbeef0123
+<
+
+↓`cn` or `:ConflictMarkerNone` >
+	(empty)
+<
 
 ==============================================================================
 VARIABLES                                        *conflict-marker.vim-variables*
