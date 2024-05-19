@@ -24,7 +24,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3'
-          cache: pip
       - name: Install covimerage
         run: |
           pip install covimerage
@@ -50,6 +49,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3'
-          cache: pip
       - run: pip install vim-vint
       - run: vint --warning --verbose --enable-neovim ./autoload ./plugin
