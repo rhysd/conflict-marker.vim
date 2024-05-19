@@ -94,9 +94,10 @@ group, and define your own highlights for each syntax group.
 " disable the default highlight group
 let g:conflict_marker_highlight_group = ''
 
-" Include text after begin and end markers
-let g:conflict_marker_begin = '^<<<<<<< .*$'
-let g:conflict_marker_end   = '^>>>>>>> .*$'
+" Include text after begin, common ancestor, and end markers
+let g:conflict_marker_begin = '^<\{7,} .*$'
+let g:conflict_marker_common_ancestors = '^|\{7,} .*$'
+let g:conflict_marker_end   = '^>\{7,} .*$'
 
 highlight ConflictMarkerBegin guibg=#2f7366
 highlight ConflictMarkerOurs guibg=#2e5049
