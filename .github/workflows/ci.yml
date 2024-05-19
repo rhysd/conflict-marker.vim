@@ -6,9 +6,9 @@ jobs:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Checkout themis.vim
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: thinca/vim-themis
           path: vim-themis
@@ -21,7 +21,10 @@ jobs:
           cd ./test
           echo $THEMIS_VIM
           ../vim-themis/bin/themis *.vimspec
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+          cache: pip
       - name: Install covimerage
         run: |
           pip install covimerage
@@ -34,7 +37,7 @@ jobs:
           coverage report
           coverage xml
       - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./test/coverage.xml
@@ -43,7 +46,10 @@ jobs:
     name: Run vint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+          cache: pip
       - run: pip install vim-vint
       - run: vint --warning --verbose --enable-neovim ./autoload ./plugin
