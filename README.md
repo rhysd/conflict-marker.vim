@@ -20,17 +20,9 @@ If you don't want to use default mappings, set `g:conflict_marker_enable_mapping
 
 ## Installation
 
-Please copy below files to corresponding directories in your "~/.vim" directory.
+Please follow the instruction in `:help add-package`.
 
-- plugin/conflict_marker.vim
-- autoload/conflict_marker.vim
-- autoload/conflict_marker/detect.vim
-- autoload/unite/sources/conflict.vim (if you use unite.vim)
-- doc/conflict-marker.txt
-
-Please do `:helptags ~/.vim/doc` to generate help tags.
-
-If you use a plugin manager, please follow its instruction and documentation to install.
+If you use some plugin manager, please follow its instruction and documentation to install.
 For example, you can install this plugin with [neobundle.vim](https://github.com/Shougo/neobundle.vim).
 
 ```vim
