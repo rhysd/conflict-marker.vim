@@ -68,12 +68,13 @@ function! s:set_conflict_marker_to_match_words()
         return
     endif
 
-    let b:match_words = get(b:, 'match_words', '')
-                \       . printf(',%s:%s:%s:%s',
-                \                g:conflict_marker_begin,
-                \                g:conflict_marker_common_ancestors,
-                \                g:conflict_marker_separator,
-                \                g:conflict_marker_end)
+    let group = printf('%s:%s:%s:%s',
+                        \ g:conflict_marker_begin,
+                        \ g:conflict_marker_common_ancestors,
+                        \ g:conflict_marker_separator,
+                        \ g:conflict_marker_end)
+
+    let b:match_words = exists('b:match_words') ? b:match_words . ',' . group : group
     let b:conflict_marker_match_words_loaded = 1
 endfunction
 
