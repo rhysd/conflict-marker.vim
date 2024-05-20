@@ -194,7 +194,7 @@ Describe :ConflictMarkerBoth
         End
 
         Context with bang
-            It resolves a conflict by keeping theirs and ours in reverse order
+            It resolves a conflict by keeping theirs and ours in reverse order with bang
                 ConflictMarkerBoth!
                 Assert Equals(getline(1, '$'), ['themselves', 'ourselves', ''])
             End

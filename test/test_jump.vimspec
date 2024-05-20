@@ -92,7 +92,7 @@ Describe :ConflictMarkerNextHunk
             close!
         End
 
-        It move cursor to next hunk
+        It moves cursor to next hunk
             normal! gg
             for l in [2, 9, 16]
                 ConflictMarkerNextHunk
@@ -112,7 +112,7 @@ Describe :ConflictMarkerNextHunk
             Assert Equals(line('.'), 9)
         End
 
-        It with bang accepts at cursor
+        It accepts position at cursor with bang
             normal! ggj
             ConflictMarkerNextHunk!
             Assert Equals(line('.'), 2)
@@ -128,7 +128,7 @@ Describe :ConflictMarkerNextHunk
             close!
         End
 
-        It move cursor to next hunk
+        It moves cursor to next hunk
             normal! gg
             for l in [2, 11, 20]
                 ConflictMarkerNextHunk
@@ -148,7 +148,7 @@ Describe :ConflictMarkerNextHunk
             Assert Equals(line('.'), 11)
         End
 
-        It with bang accepts at cursor
+        It accepts position at cursor with bang
             normal! ggj
             ConflictMarkerNextHunk!
             Assert Equals(line('.'), 2)
@@ -172,7 +172,7 @@ Describe :ConflictMarkerNextHunk
             endfor
         End
 
-        It accepts at cursor with bang
+        It accepts position at cursor with bang
             normal! ggj
             ConflictMarkerNextHunk!
             Assert Equals(line('.'), 2)
@@ -190,7 +190,7 @@ Describe :ConflictMarkerPrevHunk
             close!
         End
 
-        It move cursor to previous hunk
+        It moves cursor to previous hunk
             normal! G
             for l in [16, 9, 2]
                 ConflictMarkerPrevHunk
@@ -210,7 +210,7 @@ Describe :ConflictMarkerPrevHunk
             Assert Equals(line('.'), 9)
         End
 
-        It with bang accepts at cursor
+        It accepts position at cursor with bang
             normal! Gk
             ConflictMarkerPrevHunk!
             Assert Equals(line('.'), 16)
@@ -226,7 +226,7 @@ Describe :ConflictMarkerPrevHunk
             close!
         End
 
-        It move cursor to previous hunk
+        It moves cursor to previous hunk
             normal! G
             for l in [20, 11, 2]
                 ConflictMarkerPrevHunk
@@ -246,7 +246,7 @@ Describe :ConflictMarkerPrevHunk
             Assert Equals(line('.'), 11)
         End
 
-        It with bang accepts at cursor
+        It accepts position at cursor with bang
             normal! Gk
             ConflictMarkerPrevHunk!
             Assert Equals(line('.'), 20)
@@ -262,7 +262,7 @@ Describe :ConflictMarkerPrevHunk
             close!
         End
 
-        It move cursor to previous hunk
+        It moves cursor to previous hunk
             normal! G
             for l in [9, 2]
                 ConflictMarkerPrevHunk
@@ -270,7 +270,7 @@ Describe :ConflictMarkerPrevHunk
             endfor
         End
 
-        It accepts at cursor with bang
+        It accepts position at cursor with bang
             normal! Gk
             ConflictMarkerPrevHunk!
             Assert Equals(line('.'), 9)

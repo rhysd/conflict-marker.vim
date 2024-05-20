@@ -67,7 +67,7 @@ Describe Conflict marker
             let g:conflict_marker_enable_detect = saved
         End
 
-        It can disable detection (#18)
+        It disables detection when 0 is set (#18)
             let g:conflict_marker_enable_detect = 0
             doautocmd BufReadPost
             for l in [1, 8, 15]

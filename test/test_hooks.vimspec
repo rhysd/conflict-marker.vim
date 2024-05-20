@@ -27,7 +27,7 @@ Describe g:conflict_marker_hooks
         doautocmd BufReadPost
     End
 
-    It execute on_detected hook specified by string
+    It executes on_detected hook specified by string
         let g:test_hooked = 0
         function! TestHook()
             let g:test_hooked = 1
@@ -39,7 +39,7 @@ Describe g:conflict_marker_hooks
         unlet g:test_hooked
     End
 
-    It execute on_detected hook specified by funcref
+    It executes on_detected hook specified by funcref
         let g:test_hooked = 0
         let g:conflict_marker_hooks = {}
         function! g:conflict_marker_hooks.on_detected()

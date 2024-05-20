@@ -1,5 +1,5 @@
 Describe Default settings
-    It provide variables to customize
+    It provides variables to customize
         Assert Exists('g:loaded_conflict_marker')
         Assert Equals(g:conflict_marker_highlight_group, 'Error')
         Assert Equals(g:conflict_marker_begin, '^<<<<<<<\+')
@@ -63,7 +63,7 @@ Describe Default settings
             Assert NotEmpty(mapcheck('cB', 'n'))
         End
 
-        It does not provide user mappings until hunk is not found
+        It does not provide user mappings until hunk is found
             Assert Falsy(mapcheck(']x', 'n'))
             Assert Falsy(mapcheck('[x', 'n'))
             Assert Falsy(mapcheck('ct', 'n'))
