@@ -56,6 +56,25 @@ let s:lines_diff3 = [
 
 lockvar s:lines_diff3
 
+let s:lines_long_markers = [
+            \ '',
+            \ '<<<<<<<<<<<<<< HEAD',
+            \ 'ourselves1',
+            \ '==============',
+            \ 'themselves1',
+            \ '>>>>>>>>>>>>>> 8374eabc232',
+            \ '',
+            \ '',
+            \ '<<<<<<<< HEAD',
+            \ 'ourselves2',
+            \ '========',
+            \ 'themselves2',
+            \ '>>>>>>>> 8374eabc232',
+            \ '',
+            \ ]
+
+lockvar s:lines_long_markers
+
 function! s:setup(lines) abort
     new
     for l in range(1, len(a:lines))
@@ -81,13 +100,13 @@ Describe :ConflictMarkerNextHunk
             endfor
         End
 
-        It doesn''t move cursor at the end of buffer
+        It doesn't move cursor at the end of buffer
             normal! G
             ConflictMarkerNextHunk
             Assert Equals(line('.'), line('$'))
         End
 
-        It doesn''t accept at cursor
+        It doesn't accept at cursor
             normal! ggj
             ConflictMarkerNextHunk
             Assert Equals(line('.'), 9)
@@ -117,19 +136,43 @@ Describe :ConflictMarkerNextHunk
             endfor
         End
 
-        It doesn''t move cursor at the end of buffer
+        It doesn't move cursor at the end of buffer
             normal! G
             ConflictMarkerNextHunk
             Assert Equals(line('.'), line('$'))
         End
 
-        It doesn''t accept at cursor
+        It doesn't accept at cursor
             normal! ggj
             ConflictMarkerNextHunk
             Assert Equals(line('.'), 11)
         End
 
         It with bang accepts at cursor
+            normal! ggj
+            ConflictMarkerNextHunk!
+            Assert Equals(line('.'), 2)
+        End
+    End
+
+    Context markers with more than 7 characters
+        Before
+            call s:setup(s:lines_long_markers)
+        End
+
+        After
+            close!
+        End
+
+        It moves cursor to next hunk
+            normal! gg
+            for l in [2, 9]
+                ConflictMarkerNextHunk
+                Assert Equals(line('.'), l)
+            endfor
+        End
+
+        It accepts at cursor with bang
             normal! ggj
             ConflictMarkerNextHunk!
             Assert Equals(line('.'), 2)
@@ -155,13 +198,13 @@ Describe :ConflictMarkerPrevHunk
             endfor
         End
 
-        It doesn''t move cursor at the top of buffer
+        It doesn't move cursor at the top of buffer
             normal! gg
             ConflictMarkerPrevHunk
             Assert Equals(line('.'), 1)
         End
 
-        It doesn''t accept at cursor
+        It doesn't accept at cursor
             normal! Gk
             ConflictMarkerPrevHunk
             Assert Equals(line('.'), 9)
@@ -191,13 +234,13 @@ Describe :ConflictMarkerPrevHunk
             endfor
         End
 
-        It doesn''t move cursor at the top of buffer
+        It doesn't move cursor at the top of buffer
             normal! gg
             ConflictMarkerPrevHunk
             Assert Equals(line('.'), 1)
         End
 
-        It doesn''t accept at cursor
+        It doesn't accept at cursor
             normal! Gk
             ConflictMarkerPrevHunk
             Assert Equals(line('.'), 11)
@@ -207,6 +250,30 @@ Describe :ConflictMarkerPrevHunk
             normal! Gk
             ConflictMarkerPrevHunk!
             Assert Equals(line('.'), 20)
+        End
+    End
+
+    Context markers with more than 7 characters
+        Before
+            call s:setup(s:lines_long_markers)
+        End
+
+        After
+            close!
+        End
+
+        It move cursor to previous hunk
+            normal! G
+            for l in [9, 2]
+                ConflictMarkerPrevHunk
+                Assert Equals(line('.'), l)
+            endfor
+        End
+
+        It accepts at cursor with bang
+            normal! Gk
+            ConflictMarkerPrevHunk!
+            Assert Equals(line('.'), 9)
         End
     End
 End
