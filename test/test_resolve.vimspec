@@ -201,3 +201,20 @@ Describe :ConflictMarkerBoth
         End
     End
 End
+
+Describe :ConflictMarkerCommonAncestors
+    Context applying to diff3
+        Before
+            call s:load(g:lines_diff3)
+        End
+
+        After
+            close!
+        End
+
+        It resolves a conflict by rolling back to common ancestor's
+            ConflictMarkerCommonAncestors
+            Assert Equals(getline(1, '$'), ['ancestors', ''])
+        End
+    End
+End

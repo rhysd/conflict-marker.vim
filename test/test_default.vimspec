@@ -17,6 +17,7 @@ Describe Default settings
         Assert Exists(':ConflictMarkerOurselves')
         Assert Exists(':ConflictMarkerBoth')
         Assert Exists(':ConflictMarkerNone')
+        Assert Exists(':ConflictMarkerCommonAncestors')
         Assert Exists(':ConflictMarkerNextHunk')
         Assert Exists(':ConflictMarkerPrevHunk')
     End
@@ -27,6 +28,7 @@ Describe Default settings
         Assert NotEmpty(mapcheck('<Plug>(conflict-marker-both)', 'n'))
         Assert NotEmpty(mapcheck('<Plug>(conflict-marker-both-rev)', 'n'))
         Assert NotEmpty(mapcheck('<Plug>(conflict-marker-none)', 'n'))
+        Assert NotEmpty(mapcheck('<Plug>(conflict-marker-common-ancestors)', 'n'))
         Assert NotEmpty(mapcheck('<Plug>(conflict-marker-next-hunk)', 'n'))
         Assert NotEmpty(mapcheck('<Plug>(conflict-marker-prev-hunk)', 'n'))
     End
@@ -61,6 +63,7 @@ Describe Default settings
             Assert NotEmpty(mapcheck('cn', 'n'))
             Assert NotEmpty(mapcheck('cb', 'n'))
             Assert NotEmpty(mapcheck('cB', 'n'))
+            Assert NotEmpty(mapcheck('ca', 'n'))
         End
 
         It does not provide user mappings until hunk is found
@@ -71,6 +74,7 @@ Describe Default settings
             Assert Falsy(mapcheck('cn', 'n'))
             Assert Falsy(mapcheck('cb', 'n'))
             Assert Falsy(mapcheck('cB', 'n'))
+            Assert Falsy(mapcheck('ca', 'n'))
         End
     End
 End

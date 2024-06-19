@@ -209,6 +209,24 @@ theirs
 ```
 ```
 
+### Apply Common Ancestor's
+
+```
+<<<<<<< HEAD
+ours
+||||||| 11a4d4224475
+ancestor
+=======
+theirs
+>>>>>>> deadbeef0123
+```
+
+↓`ca` or `:ConflictMarkerCommonAncestors`
+
+```
+ancestor
+```
+
 ## Customize
 
 TODO
